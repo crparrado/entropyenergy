@@ -2028,3 +2028,115 @@ footer {
   color: var(--accent);
   font-size: 0.8rem;
 }
+
+/* Mobile Navigation */
+.site-nav__toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text);
+  z-index: 20;
+}
+
+.hamburger-box {
+  width: 24px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -1px;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 24px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 2px;
+  position: absolute;
+  transition: transform 0.15s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: "";
+  display: block;
+}
+
+.hamburger-inner::before {
+  top: -8px;
+}
+
+.hamburger-inner::after {
+  bottom: -8px;
+}
+
+/* Active State for Hamburger */
+.site-nav__toggle.active .hamburger-inner {
+  transform: rotate(45deg);
+}
+
+.site-nav__toggle.active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+}
+
+.site-nav__toggle.active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+
+@media (max-width: 768px) {
+  .site-nav__toggle {
+    display: block;
+  }
+
+  .site-nav ul {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 75%;
+    max-width: 300px;
+    background: rgba(5, 16, 28, 0.98);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 6rem 2rem 2rem;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    z-index: 15;
+  }
+
+  .site-nav ul.active {
+    transform: translateX(0);
+  }
+
+  .site-nav a {
+    font-size: 1.2rem;
+  }
+  
+  /* Overlay when menu is open */
+  .site-nav__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 14;
+  }
+  
+  .site-nav__overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

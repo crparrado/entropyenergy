@@ -1965,6 +1965,41 @@ function renderGeneratorFacts() {
   refs.generatorDrawbacks.innerHTML = '';
 }
 
+// Mobile Menu Toggle
+const navToggle = document.getElementById('navToggle');
+const siteNavUl = document.querySelector('.site-nav ul');
+const siteNavLinks = document.querySelectorAll('.site-nav a');
+
+if (navToggle && siteNavUl) {
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'site-nav__overlay';
+  document.body.appendChild(overlay);
+
+  function toggleMenu() {
+    const isActive = siteNavUl.classList.contains('active');
+    navToggle.classList.toggle('active', !isActive);
+    siteNavUl.classList.toggle('active', !isActive);
+    overlay.classList.toggle('active', !isActive);
+    document.body.style.overflow = isActive ? '' : 'hidden'; // Prevent scrolling when menu is open
+  }
+
+  function closeMenu() {
+    navToggle.classList.remove('active');
+    siteNavUl.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  navToggle.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Close menu when clicking a link
+  siteNavLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+}
+
 init().catch((error) => {
   console.error('No se pudo inicializar el planificador', error);
 });
