@@ -1434,18 +1434,15 @@ function getRegion() {
 }
 
 function getPanelWatt() {
-  return state.useCase === 'outdoor' ? constants.portablePanelW : constants.panelW;
+  return constants.portablePanelW;
 }
 
 function describePanels(count) {
   if (count <= 0) {
-    return state.useCase === 'outdoor' ? 'Sin panel plegable' : 'Sin panel solar';
+    return 'Sin panel plegable';
   }
   const plural = count === 1 ? '' : 'es';
-  if (state.useCase === 'outdoor') {
-    return `${count} panel${plural} plegable${plural} de ${getPanelWatt()} W`;
-  }
-  return `${count} panel${plural} de ${getPanelWatt()} W`;
+  return `${count} panel${plural} plegable${plural} de ${getPanelWatt()} W`;
 }
 
 function describePortablePanels(count) {
