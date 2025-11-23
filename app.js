@@ -55,7 +55,7 @@ const scenarioPresets = [
       { id: 'portable-fridge', power: 60, hours: 5 },
       { id: 'camp-lights', power: 40, hours: 4 },
       { id: 'drone-charger', power: 90, hours: 2 },
-      { id: 'starlink', power: 110, hours: 3 }
+      { id: 'starlink', power: 110, hours: 2 }
     ],
     autonomyDays: 0.8,
     outdoorHours: 8
@@ -85,13 +85,13 @@ const scenarioPresets = [
     preferredKitId: 'kit-pro',
     image: 'images/bg/3200w1.png',
     loads: [
-      { id: 'pos', power: 180, hours: 6 },
+      { id: 'pos', power: 180, hours: 5 },
       { id: 'router', power: 25, hours: 24 },
-      { id: 'cctv', power: 95, hours: 10 },
-      { id: 'lights', power: 140, hours: 4 },
+      { id: 'cctv', power: 95, hours: 8 },
+      { id: 'lights', power: 140, hours: 3 },
       { id: 'starlink', power: 110, hours: 3 }
     ],
-    autonomyDays: 0.65,
+    autonomyDays: 0.45,
     image: 'images/bg/3200w1.png',
     imageAlt: 'Planta móvil 3.2 kW junto a herramientas y laptop'
   },
