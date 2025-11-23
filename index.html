@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="images/logos/EntropyEnergy_favicon_E2_square.png">
 </head>
+
 <body>
   <nav class="site-nav">
     <div class="site-nav__inner">
@@ -26,9 +28,10 @@
       </ul>
       <button class="site-nav__cart" id="navCartButton" type="button" aria-label="Ver carrito">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z"/>
-          <circle cx="10" cy="21" r="1.6"/>
-          <circle cx="18" cy="21" r="1.6"/>
+          <path
+            d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z" />
+          <circle cx="10" cy="21" r="1.6" />
+          <circle cx="18" cy="21" r="1.6" />
         </svg>
         <span class="site-nav__cart-badge hidden" id="navCartBadge">0</span>
       </button>
@@ -40,7 +43,9 @@
       <div class="hero__content">
         <span class="hero__eyebrow">Energía portátil inteligente</span>
         <h1>Prepárate para cualquier corte o aventura con EntropyEnergy</h1>
-        <p>Con nuestros kits GO y GO+ cargas celulares, drones, Starlink y tus equipos críticos sin ruido ni combustible. Calcula en segundos la autonomía que necesitas y sal con la confianza de que todo seguirá encendido.</p>
+        <p>Con nuestros kits GO y GO+ cargas celulares, drones, Starlink y tus equipos críticos sin ruido ni
+          combustible. Calcula en segundos la autonomía que necesitas y sal con la confianza de que todo seguirá
+          encendido.</p>
         <div class="hero__actions">
           <a class="cta-button" href="#quickScenarios">Elije tu batería</a>
           <a class="cta-link" href="#customPlanner">Personalizar mi kit</a>
@@ -67,8 +72,10 @@
     <div class="panel__header">
       <h2>Escenarios rápidos</h2>
       <div class="quick-scenarios__intro">
-        <p>Elige un plan prearmado según tu necesidad: outdoor ligero, home office extendido o respaldo para operaciones críticas. Cada tarjeta carga consumos reales y te muestra el kit ganador sin configurar nada.</p>
-        <p>¿Tus cargas son distintas? <a href="#customPlanner">Personaliza tu caso</a> y ajusta potencia, horas y equipos especiales.</p>
+        <p>Elige un plan prearmado según tu necesidad: outdoor ligero, home office extendido o respaldo para operaciones
+          críticas. Cada tarjeta carga consumos reales y te muestra el kit ganador sin configurar nada.</p>
+        <p>¿Tus cargas son distintas? <a href="#customPlanner">Personaliza tu caso</a> y ajusta potencia, horas y
+          equipos especiales.</p>
       </div>
     </div>
     <a class="quick-scenarios__customize" href="#customPlanner">Personalizar mi kit desde cero</a>
@@ -83,7 +90,8 @@
       </div>
       <div class="planner__section-heading" id="customPlanner">
         <h3>Personaliza tus cargas</h3>
-        <p>Indica tu comuna, autonomía objetivo y agrega las cargas críticas que quieres respaldar. El planner recalcula el kit y la recarga recomendada al instante.</p>
+        <p>Indica tu comuna, autonomía objetivo y agrega las cargas críticas que quieres respaldar. El planner recalcula
+          el kit y la recarga recomendada al instante.</p>
       </div>
       <div class="planner__grid">
         <section class="planner__column planner__column--inputs">
@@ -126,7 +134,8 @@
               <button id="addLoad" class="ghost">Agregar carga</button>
             </div>
             <div id="loadList" class="load-list"></div>
-            <p class="planner__tip">Tip: desplázate para ver todas las cargas sugeridas y ajusta las horas que de verdad necesitas.</p>
+            <p class="planner__tip">Tip: desplázate para ver todas las cargas sugeridas y ajusta las horas que de verdad
+              necesitas.</p>
           </div>
           <button id="calculate" class="primary planner__calculate">Actualizar recomendación</button>
         </section>
@@ -161,7 +170,8 @@
       </div>
       <div class="planner__section-heading">
         <h3>Kit recomendado</h3>
-        <p>Se actualiza automáticamente con los escenarios rápidos o al personalizar tus cargas. Aquí verás el kit ganador listo para cotizar.</p>
+        <p>Se actualiza automáticamente con los escenarios rápidos o al personalizar tus cargas. Aquí verás el kit
+          ganador listo para cotizar.</p>
       </div>
       <div class="planner__highlight planner__highlight--empty" id="plannerHighlight">
         <div class="planner__highlight-info">
@@ -216,23 +226,27 @@
     <section class="panel accessory" id="panelAccessory">
       <div class="panel__header">
         <h2>Panel plegable 200 W</h2>
-        <p>Diseñado para los kits GO: liviano, resistente al agua y listo para recargar en cualquier campamento.</p>
+        <p>Tu fuente de energía inagotable. Carga tus kits GO donde no hay enchufes: ideal para camping, emergencias o
+          días de playa.</p>
       </div>
       <div class="accessory__grid">
         <figure class="accessory__media">
           <div class="accessory__carousel">
-            <button class="accessory__carousel-control prev" id="panelCarouselPrev" type="button" aria-label="Foto anterior">&lsaquo;</button>
-            <img id="panelCarouselImage" src="images/PV/200W-1-1024x683.webp" alt="Panel solar plegable 200 W desplegado">
-            <button class="accessory__carousel-control next" id="panelCarouselNext" type="button" aria-label="Foto siguiente">&rsaquo;</button>
+            <button class="accessory__carousel-control prev" id="panelCarouselPrev" type="button"
+              aria-label="Foto anterior">&lsaquo;</button>
+            <img id="panelCarouselImage" src="images/PV/200W-1-1024x683.webp"
+              alt="Panel solar plegable 200 W desplegado">
+            <button class="accessory__carousel-control next" id="panelCarouselNext" type="button"
+              aria-label="Foto siguiente">&rsaquo;</button>
           </div>
           <div class="accessory__carousel-dots" id="panelCarouselDots"></div>
         </figure>
         <div class="accessory__content">
           <ul>
-            <li>Eficiencia del 23% para capturar más energía incluso con nubosidad ligera.</li>
-            <li>Incluye soporte integrado y bolso con cable MC4 listo para conectar a tus kits GO.</li>
-            <li>Pesa menos de 8 kg, ideal para vans, overlanding y operaciones remotas.</li>
-            <li>Se pliega en segundos y cabe en el maletero sin ocupar espacio.</li>
+            <li><strong>Independencia total:</strong> Recarga tu batería con el sol y olvídate de buscar enchufes.</li>
+            <li><strong>Eficiencia premium (23%):</strong> Captura más energía incluso en días nublados.</li>
+            <li><strong>Listo para usar:</strong> Incluye bolso, soporte y cable MC4. Desplegar y conectar.</li>
+            <li><strong>Ultraligero:</strong> Menos de 8 kg, perfecto para llevar en el auto o la van.</li>
           </ul>
           <button class="cta-button" id="addPanelToCart" type="button">Agregar al carrito</button>
         </div>
@@ -261,7 +275,8 @@
     <section class="panel cta" id="contactCTA">
       <h2>¿Listo para asegurar tu energía?</h2>
       <p>Recibe una cotización personalizada en tu WhatsApp con la configuración que acabas de planificar.</p>
-      <a class="cta-button" id="whatsappLink" href="https://wa.me/56900000000" target="_blank" rel="noopener">Enviar a WhatsApp</a>
+      <a class="cta-button" id="whatsappLink" href="https://wa.me/56900000000" target="_blank" rel="noopener">Enviar a
+        WhatsApp</a>
     </section>
   </main>
 
@@ -281,9 +296,10 @@
   <a id="cartShortcut" class="cart-shortcut hidden" href="#" aria-label="Ver carrito">
     <span class="cart-shortcut__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" role="presentation" focusable="false">
-        <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z"/>
-        <circle cx="10" cy="21" r="1.6"/>
-        <circle cx="18" cy="21" r="1.6"/>
+        <path
+          d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z" />
+        <circle cx="10" cy="21" r="1.6" />
+        <circle cx="18" cy="21" r="1.6" />
       </svg>
     </span>
     <span id="cartShortcutLabel" class="cart-shortcut__label">Ver carrito</span>
@@ -309,4 +325,5 @@
 
   <script src="app.js" type="module"></script>
 </body>
+
 </html>

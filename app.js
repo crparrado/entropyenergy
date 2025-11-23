@@ -130,7 +130,8 @@ const kits = [
     notes: 'Batería LiFePO₄ de 672 Wh, 600 W continuos (1.2 kW pico) y carga AC 480 W.',
     image: 'images/bg/600w1.png',
     imageAlt: 'Estación de energía portátil GO vista frontal',
-    datasheet: 'fichasfinales/SINGO%20600%20W.pdf'
+    datasheet: 'fichasfinales/SINGO%20600%20W.pdf',
+    usageTip: 'Ideal para escapadas de fin de semana y mantener tus dispositivos siempre cargados.'
   },
   {
     id: 'kit-go-plus',
@@ -145,7 +146,8 @@ const kits = [
     notes: 'Batería LiFePO₄ de 1.0 kWh, inversor 1 kW continuo (2 kW pico) y doble USB-C 100 W.',
     image: 'images/bg/600w1.png',
     imageAlt: 'Estación de energía portátil GO vista frontal',
-    datasheet: 'fichasfinales/SINGO%201000%20W.pdf'
+    datasheet: 'fichasfinales/SINGO%201000%20W.pdf',
+    usageTip: 'Perfecto para trabajo remoto en ruta con Starlink y mayor autonomía.'
   },
   {
     id: 'kit-home',
@@ -162,7 +164,8 @@ const kits = [
     image: 'images/bg/2000w1.png',
     imageScale: 1.25,
     datasheet: 'fichasfinales/SINGO%202000%20W.pdf',
-    imageAlt: 'Estación portátil Singo 2000 Plus vista frontal'
+    imageAlt: 'Estación portátil Singo 2000 Plus vista frontal',
+    usageTip: 'Tu respaldo esencial para cortes de luz en casa, manteniendo refrigerador y wifi.'
   },
   {
     id: 'kit-pro',
@@ -179,7 +182,8 @@ const kits = [
     image: 'images/bg/3200w1.png',
     imageScale: 1.15,
     datasheet: 'fichasfinales/SINGO%203200%20W.pdf',
-    imageAlt: 'Estación P3200 con salidas frontales'
+    imageAlt: 'Estación P3200 con salidas frontales',
+    usageTip: 'Potencia profesional para pymes y respaldo crítico de larga duración.'
   },
   {
     id: 'kit-max',
@@ -196,7 +200,8 @@ const kits = [
     image: 'images/bg/4000w1.png',
     imageScale: 1.2,
     datasheet: 'fichasfinales/SINGO%204000%20W.pdf',
-    imageAlt: 'Unidad SH4000 lista para respaldo continuo'
+    imageAlt: 'Unidad SH4000 lista para respaldo continuo',
+    usageTip: 'Máxima independencia energética para operaciones 24/7 y alto consumo.'
   }
 ];
 
@@ -957,6 +962,7 @@ function renderKitCards() {
       <div>Modo outdoor (${state.outdoorHoursPerDay} h/día): <strong>${formatDays(outdoorAutonomyDays)}</strong></div>
     </div>
     <p class="kit-card__note">${kit.notes}</p>
+    ${kit.usageTip ? `<p class="kit-card__tip"><strong>Tip:</strong> ${kit.usageTip}</p>` : ''}
   `;
 
   const actions = document.createElement('div');
