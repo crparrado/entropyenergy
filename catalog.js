@@ -1,4 +1,6 @@
 const STORAGE_KEY = 'entropyEnergy.catalogOverride';
+const STORAGE_VERSION_KEY = `${STORAGE_KEY}:version`;
+const CATALOG_VERSION = '2024-11-pdf-update';
 let cachedCatalog = null;
 
 function getStorage() {
@@ -36,9 +38,14 @@ export async function loadCatalog() {
   }
   const storage = getStorage();
   const override = storage ? parseCatalog(storage.getItem(STORAGE_KEY)) : null;
-  if (override) {
+  const overrideVersion = storage?.getItem(STORAGE_VERSION_KEY);
+  if (override && overrideVersion === CATALOG_VERSION) {
     cachedCatalog = override;
     return override;
+  }
+  if (override && overrideVersion !== CATALOG_VERSION) {
+    storage.removeItem(STORAGE_KEY);
+    storage.removeItem(STORAGE_VERSION_KEY);
   }
   const baseCatalog = await fetchBaseCatalog();
   cachedCatalog = baseCatalog;
@@ -54,6 +61,7 @@ export function saveCatalog(data) {
     throw new Error('No hay acceso a localStorage en este navegador.');
   }
   storage.setItem(STORAGE_KEY, JSON.stringify(data));
+  storage.setItem(STORAGE_VERSION_KEY, CATALOG_VERSION);
   cachedCatalog = data;
 }
 
@@ -61,6 +69,7 @@ export function clearCatalogOverride() {
   const storage = getStorage();
   if (storage) {
     storage.removeItem(STORAGE_KEY);
+    storage.removeItem(STORAGE_VERSION_KEY);
   }
   cachedCatalog = null;
 }

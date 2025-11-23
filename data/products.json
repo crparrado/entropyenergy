@@ -4,37 +4,41 @@
     "name": "Kit GO · Outdoor portátil",
     "category": "baterias",
     "power_w": 600,
-    "capacity_wh": 640,
+    "capacity_wh": 672,
     "price_clp": 349000,
     "stock": 12,
-    "datasheet": null,
+    "datasheet": "fichasfinales/SINGO%20600%20W.pdf",
     "images": [
       "images/bg/600w1.png"
     ],
-    "summary": "Respaldo ultraligero para luces, comunicaciones y recarga básica.",
+    "summary": "LiFePO₄ 672 Wh, inversor 600 W (1.2 kW pico) y carga AC 480 W para recargar en 1.5 h.",
     "includes": [
-      "2 salidas AC de 220 V",
-      "4 puertos USB-A + 1 USB-C PD",
-      "Entrada solar 200 W MC4"
+      "2 salidas AC 600 W continuos (1.2 kW pico)",
+      "Entradas: AC 480 W, auto 12 V/10 A y PV 200 W (10-30 V)",
+      "2 USB-C 100 W, 2 QC3.0, USB-A 12 W, cargador inalámbrico 10 W",
+      "Puerto auto 13.2 V/10 A + 2 puertos DC 13.2 V/10 A",
+      "Incluye cable AC 220 V, cable para auto 12 V y cable MC4"
     ]
   },
   {
     "id": "kit-go-plus",
     "name": "Kit GO+ · Outdoor XL",
     "category": "baterias",
-    "power_w": 1200,
-    "capacity_wh": 1280,
+    "power_w": 1000,
+    "capacity_wh": 1008,
     "price_clp": 599000,
     "stock": 8,
-    "datasheet": null,
+    "datasheet": "fichasfinales/SINGO%201000%20W.pdf",
     "images": [
       "images/bg/600w1.png"
     ],
-    "summary": "Potencia Starlink, cooler 12 V y jornadas extensas.",
+    "summary": "Batería LiFePO₄ 1.0 kWh con inversor 1 kW (2 kW pico) y cargador AC rápido de 800 W.",
     "includes": [
-      "2 salidas AC de 220 V",
-      "2 salidas DC 12 V",
-      "Entrada solar 400 W"
+      "2 salidas AC 1 kW continuos (2 kW pico)",
+      "Entradas: AC 800 W, auto 12 V/10 A y PV 200 W (10-30 V)",
+      "2 USB-C 100 W, 2 QC3.0, USB-A 12 W y cargador inalámbrico 10 W",
+      "Puerto auto 13.2 V/10 A + 2 puertos DC 13.2 V/10 A",
+      "Incluye cable AC 220 V, cable para auto 12 V y cable MC4"
     ]
   },
   {
@@ -45,15 +49,17 @@
     "capacity_wh": 2048,
     "price_clp": null,
     "stock": 3,
-    "datasheet": "images/2000%20W/ieetek-Singo2000Plus-portable-power-station-datasheet-20251027.pdf",
+    "datasheet": "fichasfinales/SINGO%202000%20W.pdf",
     "images": [
       "images/bg/2000w1.png"
     ],
-    "summary": "Autonomía silenciosa para nevera, red y teletrabajo 12-15 h.",
+    "summary": "LiFePO₄ 2.0 kWh, inversor 2.4 kW (4.8 kW pico), carga AC 1.8 kW y PV 500 W (12-60 V).",
     "includes": [
-      "4 tomas AC",
-      "2 USB-C PD 100 W",
-      "Entrada solar dual 1.2 kW"
+      "4 salidas AC 2.4 kW continuos (4.8 kW pico)",
+      "Entradas: AC 1.8 kW, auto 12 V/10 A y PV 500 W (12-60 V)",
+      "USB-C (2x 100 W + 2x 45 W) y 4 USB-A 5-12 V",
+      "Puerto auto 13.2 V/10 A + 2 puertos DC 13.2 V/8 A",
+      "Incluye cable AC 220 V, cable para auto 12 V y cable MC4"
     ]
   },
   {
@@ -61,18 +67,20 @@
     "name": "Kit Pro · Operación flexible",
     "category": "baterias",
     "power_w": 3200,
-    "capacity_wh": 3200,
+    "capacity_wh": 2048,
     "price_clp": null,
     "stock": 2,
-    "datasheet": "images/3200%20W/ieetek-P3200-portable-power-station-datasheet-20251027.pdf",
+    "datasheet": "fichasfinales/SINGO%203200%20W.pdf",
     "images": [
       "images/bg/3200w1.png"
     ],
-    "summary": "Para pymes móviles, POS, CCTV y Starlink continuo.",
+    "summary": "Inversor 3.2 kW (6.4 kW pico) con batería LiFePO₄ 2.0 kWh y entrada solar 1000 W (12-80 V).",
     "includes": [
-      "6 salidas AC",
-      "Carga AC 2.9 kW",
-      "Entrada solar 1.6 kW"
+      "6 salidas AC 3.2 kW continuos (6.4 kW pico)",
+      "Entradas: AC 1.8 kW, auto 12 V/10 A y PV 1.0 kW (12-80 V)",
+      "USB-C 100 W dual + 4 USB-A QC y puertos DC 13.2 V",
+      "Puerto auto 13.2 V/10 A + 2 puertos DC 13.2 V/8 A",
+      "Incluye cable AC 220 V, cable para auto 12 V y cable MC4"
     ]
   },
   {
@@ -80,18 +88,19 @@
     "name": "Kit Max · Potencia 24/7",
     "category": "baterias",
     "power_w": 4000,
-    "capacity_wh": 4096,
+    "capacity_wh": 5120,
     "price_clp": null,
     "stock": 1,
-    "datasheet": "images/4000%20W/ieetek-SH4000-portable-power-station-datasheet-20251027.pdf",
+    "datasheet": "fichasfinales/SINGO%204000%20W.pdf",
     "images": [
       "images/bg/4000w1.png"
     ],
-    "summary": "Operaciones críticas 24/7, escalable hasta 10 kWh.",
+    "summary": "Módulo LiFePO₄ 5.12 kWh con inversor 4 kW (8 kW pico) y doble MPPT: 3 kW HV + 600 W LV.",
     "includes": [
-      "8 salidas AC",
-      "Dual MPPT 2 kW",
-      "Ruedas y trolley integrado"
+      "Salidas AC 4 kW continuos (8 kW pico)",
+      "Entradas: AC 3.6 kW, PV HV 3.0 kW (70-450 V) + PV LV 600 W (12-50 V)",
+      "Puerto XT60 12/24/36 V (30 A) + doble USB-C 100 W",
+      "Wi-Fi/Bluetooth, diseño modular IP54 e incluye cables AC, auto 12 V y MC4"
     ]
   },
   {
@@ -102,17 +111,17 @@
     "capacity_wh": null,
     "price_clp": 400000,
     "stock": 25,
-    "datasheet": "images/PV/ieetek-SP100_SP200_SP400-portable-solar-panel-datasheet-20251027.pdf",
+    "datasheet": "fichasfinales/PV%20200%20W.pdf",
     "images": [
       "images/PV/200W-1-1024x683.webp",
       "images/PV/200W-2-1024x683.webp",
       "images/PV/200W-4-2048x1366.webp"
     ],
-    "summary": "Se pliega en 30 s, IP65 y con conectores MC4 incluidos.",
+    "summary": "Panel monocristalino plegable 4 cuerpos de 200 W (24 V / 8.33 A) con eficiencia 21-23%.",
     "includes": [
-      "Cable MC4",
-      "Soporte integrado",
-      "Bolso acolchado"
+      "Salida MC4 24 V · 8.33 A",
+      "Protección IP67 y rango -20 a 70 °C",
+      "Diseño 4 pliegues con bolso de transporte (8 kg)"
     ]
   }
 ]
