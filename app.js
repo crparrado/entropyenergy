@@ -843,7 +843,7 @@ function renderKitCards() {
     const selectedPanels = Number.isFinite(state.panelCount) && state.panelCount > 0
       ? Math.round(state.panelCount)
       : 0;
-    const baseRecommendation = state.useCase === 'outdoor' ? 1 : 2;
+    const baseRecommendation = 1;
     const recommendedPanels = Math.max(1, baseRecommendation);
     const panelWatt = getPanelWatt();
     const solarDailyRecovery = selectedPanels > 0 && region
@@ -1442,7 +1442,8 @@ function describePanels(count) {
     return 'Sin panel plegable';
   }
   const plural = count === 1 ? '' : 'es';
-  return `${count} panel${plural} plegable${plural} de ${getPanelWatt()} W`;
+  const adjective = count === 1 ? 'plegable' : 'plegables';
+  return `${count} panel${plural} ${adjective} de ${getPanelWatt()} W`;
 }
 
 function describePortablePanels(count) {
