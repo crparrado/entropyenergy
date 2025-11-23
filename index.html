@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EntropyEnergy Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="images/logos/EntropyEnergy_favicon_E2_square.png">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="index.html">
+        <img src="images/logos/entropyenergylogoblanco.png" alt="EntropyEnergy" />
+      </a>
+      <ul>
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#quickScenarios">Escenarios</a></li>
+        <li><a href="products.html">Productos</a></li>
+        <li><a href="#panelAccessory">Panel plegable</a></li>
+        <li><a href="#planner">Planificador</a></li>
+        <li><a href="#contactCTA">Contacto</a></li>
+      </ul>
+      <button class="site-nav__cart" id="navCartButton" type="button" aria-label="Ver carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z"/>
+          <circle cx="10" cy="21" r="1.6"/>
+          <circle cx="18" cy="21" r="1.6"/>
+        </svg>
+        <span class="site-nav__cart-badge hidden" id="navCartBadge">0</span>
+      </button>
+    </div>
+  </nav>
+  <header id="hero" class="hero">
+    <div class="hero__background"></div>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <span class="hero__eyebrow">Energía portátil inteligente</span>
+        <h1>Prepárate para cualquier corte o aventura con EntropyEnergy</h1>
+        <p>Con nuestros kits GO y GO+ cargas celulares, drones, Starlink y tus equipos críticos sin ruido ni combustible. Calcula en segundos la autonomía que necesitas y sal con la confianza de que todo seguirá encendido.</p>
+        <div class="hero__actions">
+          <a class="cta-button" href="#quickScenarios">Elije tu batería</a>
+          <a class="cta-link" href="#customPlanner">Personalizar mi kit</a>
+        </div>
+        <div class="hero__metrics">
+          <button type="button" class="hero-chip" data-scenario="outdoor-go">
+            <strong>600&nbsp;W</strong>
+            <span>Kit GO portátil</span>
+          </button>
+          <button type="button" class="hero-chip" data-scenario="outdoor-go-plus">
+            <strong>1&nbsp;000&nbsp;W</strong>
+            <span>Kit GO+ con Starlink</span>
+          </button>
+          <a class="hero-chip hero-chip--link" href="#panelAccessory">
+            <strong>200&nbsp;W</strong>
+            <span>Panel plegable IP65</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="quickScenarios" class="panel quick-scenarios">
+    <div class="panel__header">
+      <h2>Escenarios rápidos</h2>
+      <div class="quick-scenarios__intro">
+        <p>Elige un plan prearmado según tu necesidad: outdoor ligero, home office extendido o respaldo para operaciones críticas. Cada tarjeta carga consumos reales y te muestra el kit ganador sin configurar nada.</p>
+        <p>¿Tus cargas son distintas? <a href="#customPlanner">Personaliza tu caso</a> y ajusta potencia, horas y equipos especiales.</p>
+      </div>
+    </div>
+    <a class="quick-scenarios__customize" href="#customPlanner">Personalizar mi kit desde cero</a>
+    <div id="scenarioList" class="scenario-list scenario-list--inline"></div>
+  </section>
+
+  <main>
+    <section id="planner" class="panel planner">
+      <div class="panel__header">
+        <h2>Planificar mi kit</h2>
+        <p>Selecciona un escenario, ajusta tus cargas y compara kits sin salir de la misma vista.</p>
+      </div>
+      <div class="planner__section-heading" id="customPlanner">
+        <h3>Personaliza tus cargas</h3>
+        <p>Indica tu comuna, autonomía objetivo y agrega las cargas críticas que quieres respaldar. El planner recalcula el kit y la recarga recomendada al instante.</p>
+      </div>
+      <div class="planner__grid">
+        <section class="planner__column planner__column--inputs">
+          <div class="planner__module">
+            <div class="field">
+              <label for="location">Comuna o zona</label>
+              <select id="location"></select>
+              <small>La app propone horas pico de sol para estimar la recarga fotovoltaica.</small>
+            </div>
+            <div class="field">
+              <label for="useCase">Uso principal</label>
+              <select id="useCase">
+                <option value="residential">Hogar / Pyme</option>
+                <option value="outdoor">Outdoor &amp; Expediciones</option>
+              </select>
+            </div>
+            <div class="field field--outdoor hidden" id="outdoorHoursField">
+              <label for="outdoorHours">Horas de uso outdoor por día <span id="outdoorHoursValue">8</span> h</label>
+              <input id="outdoorHours" type="range" min="2" max="16" step="1" value="8">
+              <small>Ajusta cuántas horas usarás la energía cada día en tu salida.</small>
+            </div>
+            <div class="field">
+              <label for="autonomy">Días de autonomía objetivo <span id="autonomyValue">1.0</span> días</label>
+              <input id="autonomy" type="range" min="0.5" max="3" step="0.1" value="1.0">
+            </div>
+            <div class="field field--inline">
+              <div>
+                <label for="outageFrequency">Cortes al mes</label>
+                <input type="number" id="outageFrequency" min="0" value="2">
+              </div>
+              <div>
+                <label for="outageDuration">Duración típica (h)</label>
+                <input type="number" id="outageDuration" min="0" value="6">
+              </div>
+            </div>
+          </div>
+          <div class="planner__module planner__module--loads" id="loadsModule">
+            <div class="planner__module-header">
+              <h3>Cargas críticas</h3>
+              <button id="addLoad" class="ghost">Agregar carga</button>
+            </div>
+            <div id="loadList" class="load-list"></div>
+            <p class="planner__tip">Tip: desplázate para ver todas las cargas sugeridas y ajusta las horas que de verdad necesitas.</p>
+          </div>
+          <button id="calculate" class="primary planner__calculate">Actualizar recomendación</button>
+        </section>
+
+        <section class="planner__column planner__column--insights">
+          <div class="results-card">
+            <h3>Resumen de consumo</h3>
+            <p><strong id="totalWh">0</strong> Wh por día</p>
+            <p><strong id="totalW">0</strong> W simultáneos (pico)</p>
+            <p>Capacidad mínima de batería: <strong id="batteryRequired">0 Wh</strong></p>
+            <p>Potencia mínima inversor: <strong id="inverterRequired">0 W</strong></p>
+            <p>Tiempo de carga desde red: <strong id="gridCharge">-</strong></p>
+            <p>Tiempo de carga con paneles: <strong id="solarCharge">-</strong></p>
+            <p>Consumo diario outdoor (ajustado): <strong id="outdoorWh">0 Wh</strong></p>
+          </div>
+          <div class="results-card score">
+            <h3>Resilience Score</h3>
+            <div class="score__value" id="resilienceScore">-</div>
+            <p id="scoreMessage">Completa los datos para ver tu puntaje.</p>
+          </div>
+        </section>
+
+        <section class="planner__column planner__column--kits">
+          <div class="planner__module planner__module--kits" id="kitsModule">
+            <div class="planner__module-header">
+              <h3>Detalle de este kit</h3>
+              <p>Se actualiza automáticamente según tus cargas y preferencias.</p>
+            </div>
+            <div id="kitCards" class="kit-cards kit-cards--single"></div>
+          </div>
+        </section>
+      </div>
+      <div class="planner__section-heading">
+        <h3>Kit recomendado</h3>
+        <p>Se actualiza automáticamente con los escenarios rápidos o al personalizar tus cargas. Aquí verás el kit ganador listo para cotizar.</p>
+      </div>
+      <div class="planner__highlight planner__highlight--empty" id="plannerHighlight">
+        <div class="planner__highlight-info">
+          <span class="badge" id="highlightBadge">Tu kit recomendado</span>
+          <h3 id="highlightName">Selecciona un escenario para comenzar</h3>
+          <p id="highlightCopy">Te mostraremos el kit ideal con autonomía, recarga y beneficios clave.</p>
+          <p class="planner__highlight-price" id="highlightPrice">-</p>
+          <div class="planner__highlight-specs">
+            <div>
+              <small>Potencia continua</small>
+              <strong id="highlightPower">-</strong>
+            </div>
+            <div>
+              <small>Capacidad almacenada</small>
+              <strong id="highlightCapacity">-</strong>
+            </div>
+          </div>
+          <div class="planner__highlight-stats">
+            <div>
+              <span id="highlightAutonomy">-</span>
+              <small>Autonomía con tus cargas</small>
+            </div>
+            <div>
+              <span id="highlightAC">-</span>
+              <small>Recarga AC 0-100%</small>
+            </div>
+            <div>
+              <span id="highlightSolar">-</span>
+              <small>Recuperación solar diaria</small>
+            </div>
+          </div>
+          <div class="planner__highlight-cta">
+            <a class="cta-button buy" id="highlightBuy" href="#">Comprar ahora</a>
+            <a class="cta-link" id="highlightCTA" href="#kitsModule">Ver detalle del kit</a>
+            <a class="cta-link" href="#loadsModule">Editar cargas</a>
+            <button class="ghost" id="highlightPanelButton" type="button" disabled>Agregar panel recomendado</button>
+          </div>
+          <div class="planner__highlight-devices hidden" id="highlightDevices">
+            <h4>Referencias de uso populares</h4>
+            <ul></ul>
+          </div>
+        </div>
+        <div class="planner__highlight-visual">
+          <div class="planner__highlight-glow"></div>
+          <div class="planner__highlight-frame">
+            <img id="highlightImage" src="assets/kit-go-front.png" alt="Kit recomendado" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel accessory" id="panelAccessory">
+      <div class="panel__header">
+        <h2>Panel plegable 200 W</h2>
+        <p>Diseñado para los kits GO: liviano, resistente al agua y listo para recargar en cualquier campamento.</p>
+      </div>
+      <div class="accessory__grid">
+        <figure class="accessory__media">
+          <div class="accessory__carousel">
+            <button class="accessory__carousel-control prev" id="panelCarouselPrev" type="button" aria-label="Foto anterior">&lsaquo;</button>
+            <img id="panelCarouselImage" src="images/PV/200W-1-1024x683.webp" alt="Panel solar plegable 200 W desplegado">
+            <button class="accessory__carousel-control next" id="panelCarouselNext" type="button" aria-label="Foto siguiente">&rsaquo;</button>
+          </div>
+          <div class="accessory__carousel-dots" id="panelCarouselDots"></div>
+        </figure>
+        <div class="accessory__content">
+          <ul>
+            <li>Eficiencia del 23% para capturar más energía incluso con nubosidad ligera.</li>
+            <li>Incluye soporte integrado y bolso con cable MC4 listo para conectar a tus kits GO.</li>
+            <li>Pesa menos de 8 kg, ideal para vans, overlanding y operaciones remotas.</li>
+            <li>Se pliega en segundos y cabe en el maletero sin ocupar espacio.</li>
+          </ul>
+          <button class="cta-button" id="addPanelToCart" type="button">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel comparison-panel">
+      <div class="planner__module planner__module--comparison">
+        <div class="planner__module-header">
+          <h3>Batería vs Generador</h3>
+          <p>Sin ruido, sin humo y con costos previsibles.</p>
+        </div>
+        <div class="comparison__grid comparison__grid--compact">
+          <div>
+            <h4>Kit recomendado</h4>
+            <ul id="batteryBenefits"></ul>
+          </div>
+          <div>
+            <h4>Generador a gasolina</h4>
+            <ul id="generatorDrawbacks"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel cta" id="contactCTA">
+      <h2>¿Listo para asegurar tu energía?</h2>
+      <p>Recibe una cotización personalizada en tu WhatsApp con la configuración que acabas de planificar.</p>
+      <a class="cta-button" id="whatsappLink" href="https://wa.me/56900000000" target="_blank" rel="noopener">Enviar a WhatsApp</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>EntropyEnergy &copy; <span id="year"></span>. Energía portátil, limpia y silenciosa.</p>
+  </footer>
+
+  <div class="cart-popup hidden" id="cartPopup">
+    <div class="cart-popup__content">
+      <button class="cart-popup__close" id="cartPopupClose" type="button" aria-label="Cerrar">×</button>
+      <h3>Mi carrito</h3>
+      <div id="cartPopupDetails"></div>
+      <button class="primary" id="cartPopupCheckout" type="button">Ir al carrito</button>
+    </div>
+  </div>
+
+  <a id="cartShortcut" class="cart-shortcut hidden" href="#" aria-label="Ver carrito">
+    <span class="cart-shortcut__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+        <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z"/>
+        <circle cx="10" cy="21" r="1.6"/>
+        <circle cx="18" cy="21" r="1.6"/>
+      </svg>
+    </span>
+    <span id="cartShortcutLabel" class="cart-shortcut__label">Ver carrito</span>
+    <span id="cartShortcutBadge" class="cart-shortcut__badge hidden">0</span>
+  </a>
+
+  <template id="loadTemplate">
+    <div class="load-item">
+      <div>
+        <input type="checkbox" class="load-select">
+        <input type="text" class="load-name" readonly>
+      </div>
+      <div class="load-inputs">
+        <label>W
+          <input type="number" class="load-power" min="0">
+        </label>
+        <label>h/día
+          <input type="number" class="load-hours" min="0" step="0.5">
+        </label>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+[
+  {
+    "id": "kit-go",
+    "name": "Kit GO · Outdoor portátil",
+    "category": "baterias",
+    "power_w": 600,
+    "capacity_wh": 640,
+    "price_clp": 349000,
+    "stock": 12,
+    "datasheet": null,
+    "images": [
+      "images/bg/600w1.png"
+    ],
+    "summary": "Respaldo ultraligero para luces, comunicaciones y recarga básica.",
+    "includes": [
+      "2 salidas AC de 220 V",
+      "4 puertos USB-A + 1 USB-C PD",
+      "Entrada solar 200 W MC4"
+    ]
+  },
+  {
+    "id": "kit-go-plus",
+    "name": "Kit GO+ · Outdoor XL",
+    "category": "baterias",
+    "power_w": 1200,
+    "capacity_wh": 1280,
+    "price_clp": 599000,
+    "stock": 8,
+    "datasheet": null,
+    "images": [
+      "images/bg/600w1.png"
+    ],
+    "summary": "Potencia Starlink, cooler 12 V y jornadas extensas.",
+    "includes": [
+      "2 salidas AC de 220 V",
+      "2 salidas DC 12 V",
+      "Entrada solar 400 W"
+    ]
+  },
+  {
+    "id": "kit-home",
+    "name": "Kit Home · Hogar esencial",
+    "category": "baterias",
+    "power_w": 2400,
+    "capacity_wh": 2048,
+    "price_clp": null,
+    "stock": 3,
+    "datasheet": "images/2000%20W/ieetek-Singo2000Plus-portable-power-station-datasheet-20251027.pdf",
+    "images": [
+      "images/bg/2000w1.png"
+    ],
+    "summary": "Autonomía silenciosa para nevera, red y teletrabajo 12-15 h.",
+    "includes": [
+      "4 tomas AC",
+      "2 USB-C PD 100 W",
+      "Entrada solar dual 1.2 kW"
+    ]
+  },
+  {
+    "id": "kit-pro",
+    "name": "Kit Pro · Operación flexible",
+    "category": "baterias",
+    "power_w": 3200,
+    "capacity_wh": 3200,
+    "price_clp": null,
+    "stock": 2,
+    "datasheet": "images/3200%20W/ieetek-P3200-portable-power-station-datasheet-20251027.pdf",
+    "images": [
+      "images/bg/3200w1.png"
+    ],
+    "summary": "Para pymes móviles, POS, CCTV y Starlink continuo.",
+    "includes": [
+      "6 salidas AC",
+      "Carga AC 2.9 kW",
+      "Entrada solar 1.6 kW"
+    ]
+  },
+  {
+    "id": "kit-max",
+    "name": "Kit Max · Potencia 24/7",
+    "category": "baterias",
+    "power_w": 4000,
+    "capacity_wh": 4096,
+    "price_clp": null,
+    "stock": 1,
+    "datasheet": "images/4000%20W/ieetek-SH4000-portable-power-station-datasheet-20251027.pdf",
+    "images": [
+      "images/bg/4000w1.png"
+    ],
+    "summary": "Operaciones críticas 24/7, escalable hasta 10 kWh.",
+    "includes": [
+      "8 salidas AC",
+      "Dual MPPT 2 kW",
+      "Ruedas y trolley integrado"
+    ]
+  },
+  {
+    "id": "panel-200w",
+    "name": "Panel plegable 200 W",
+    "category": "paneles",
+    "power_w": 200,
+    "capacity_wh": null,
+    "price_clp": 400000,
+    "stock": 25,
+    "datasheet": "images/PV/ieetek-SP100_SP200_SP400-portable-solar-panel-datasheet-20251027.pdf",
+    "images": [
+      "images/PV/200W-1-1024x683.webp",
+      "images/PV/200W-2-1024x683.webp",
+      "images/PV/200W-4-2048x1366.webp"
+    ],
+    "summary": "Se pliega en 30 s, IP65 y con conectores MC4 incluidos.",
+    "includes": [
+      "Cable MC4",
+      "Soporte integrado",
+      "Bolso acolchado"
+    ]
+  }
+]

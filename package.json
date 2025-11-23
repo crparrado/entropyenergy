@@ -1,0 +1,15 @@
+{
+  "name": "entropyenergy",
+  "version": "1.0.0",
+  "description": "Entropy Energy Static Site",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p $PORT"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
