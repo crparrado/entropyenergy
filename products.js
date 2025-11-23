@@ -32,7 +32,7 @@ function renderProducts(products) {
       <p class="product-card__price">${priceLabel}</p>
     `;
     card.addEventListener('click', () => {
-      window.location.href = `product-detail.html?id=${encodeURIComponent(product.id)}`;
+      window.location.href = `/product-detail.html?id=${encodeURIComponent(product.id)}`;
     });
     fragment.appendChild(card);
   });
