@@ -2109,15 +2109,16 @@ footer {
     bottom: 0;
     width: 75%;
     max-width: 300px;
-    background: #03070f;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000000 !important;
+    backdrop-filter: none !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
     flex-direction: column;
     padding: 6rem 2rem 2rem;
     gap: 2rem;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
-    z-index: 15;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.9);
+    z-index: 999;
   }
 
   .site-nav ul.active {
@@ -2126,7 +2127,7 @@ footer {
 
   .site-nav a {
     font-size: 1.2rem;
-    color: var(--text);
+    color: #ffffff !important;
   }
 
   /* Overlay when menu is open */
