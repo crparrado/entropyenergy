@@ -2033,7 +2033,8 @@ footer {
   font-size: 0.8rem;
 }
 
-/* Mobile Navigation */
+
+/* Mobile Navigation - Completely Rewritten */
 .site-nav__toggle {
   display: none;
   background: transparent;
@@ -2041,7 +2042,7 @@ footer {
   cursor: pointer;
   padding: 0.5rem;
   color: var(--text);
-  z-index: 20;
+  z-index: 1001;
 }
 
 .hamburger-box {
@@ -2082,7 +2083,6 @@ footer {
   bottom: -8px;
 }
 
-/* Active State for Hamburger */
 .site-nav__toggle.active .hamburger-inner {
   transform: rotate(45deg);
 }
@@ -2097,52 +2097,71 @@ footer {
   transform: rotate(-90deg);
 }
 
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  background: #000000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  display: none;
+}
+
+.mobile-menu__content {
+  padding: 80px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.mobile-menu__link {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu__link:active {
+  color: var(--accent);
+}
+
+.mobile-menu.active {
+  transform: translateX(0);
+}
+
+.mobile-menu__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+  display: none;
+}
+
+.mobile-menu__overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media (max-width: 768px) {
   .site-nav__toggle {
     display: block;
   }
 
-  .site-nav ul {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 75%;
-    max-width: 300px;
-    background: #000000 !important;
-    backdrop-filter: none !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    flex-direction: column;
-    padding: 6rem 2rem 2rem;
-    gap: 2rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.9);
-    z-index: 999;
+  .desktop-menu {
+    display: none !important;
   }
 
-  .site-nav ul.active {
-    transform: translateX(0);
-  }
-
-  .site-nav a {
-    font-size: 1.2rem;
-    color: #ffffff !important;
-  }
-
-  /* Overlay when menu is open */
-  .site-nav__overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 14;
-  }
-
-  .site-nav__overlay.active {
-    opacity: 1;
-    pointer-events: auto;
+  .mobile-menu,
+  .mobile-menu__overlay {
+    display: block;
   }
 }
