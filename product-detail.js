@@ -7,7 +7,7 @@ async function loadProduct() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   if (!id) {
-    detailContainer.innerHTML = '<p>No se indicó un producto.</p>';
+    detailContainer.innerHTML = `<p>No se indicó un producto.</p><p>Debug: URL=${window.location.href}</p><p>Search=${window.location.search}</p>`;
     return;
   }
   try {
