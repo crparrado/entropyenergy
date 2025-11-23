@@ -52,10 +52,10 @@ const scenarioPresets = [
     preferredKitId: 'kit-go-plus',
     image: 'images/bg/600w1.png',
     loads: [
-      { id: 'portable-fridge', power: 60, hours: 6 },
+      { id: 'portable-fridge', power: 60, hours: 5 },
       { id: 'camp-lights', power: 40, hours: 4 },
       { id: 'drone-charger', power: 90, hours: 2 },
-      { id: 'starlink', power: 110, hours: 4 }
+      { id: 'starlink', power: 110, hours: 3 }
     ],
     autonomyDays: 0.8,
     outdoorHours: 8
@@ -1160,7 +1160,7 @@ function updatePlannerHighlight(cards) {
   const highlightDeviceNode = refs.highlightDevices;
   const highlightDeviceList = refs.highlightDevicesList;
   if (highlightDeviceNode && highlightDeviceList) {
-  const summaries = getDeviceChargeSummary(kit, 6);
+    const summaries = getDeviceChargeSummary(kit, 6);
     highlightDeviceList.innerHTML = '';
     if (summaries.length === 0) {
       highlightDeviceNode.classList.add('hidden');
@@ -1247,6 +1247,23 @@ function attachHeroChipHandlers() {
       }
     });
   });
+
+  const panelLink = document.querySelector('.hero-chip--link[href="#panelAccessory"]');
+  if (panelLink) {
+    panelLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('panelAccessory');
+      if (target) {
+        const nav = document.querySelector('.site-nav');
+        const navOffset = nav ? nav.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY - navOffset;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
 }
 
 function updateResilience() {
@@ -1903,17 +1920,17 @@ function updateComparison() {
 
   const drawbacks = state.useCase === 'outdoor'
     ? [
-        'Un generador portátil equivalente supera los 70 dB y perturba campamentos y áreas protegidas.',
-        'Debes transportar bencina y aceite, con riesgo de derrames en tu vehículo.',
-        'No puedes usarlo dentro de la carpa o van: emite CO₂ y monóxido.',
-        'Requiere mantención frecuente y espacio extra para almacenamiento.'
-      ]
+      'Un generador portátil equivalente supera los 70 dB y perturba campamentos y áreas protegidas.',
+      'Debes transportar bencina y aceite, con riesgo de derrames en tu vehículo.',
+      'No puedes usarlo dentro de la carpa o van: emite CO₂ y monóxido.',
+      'Requiere mantención frecuente y espacio extra para almacenamiento.'
+    ]
     : [
-        'Riesgo de ruido >70 dB y emisiones en interiores.',
-        `Costo mensual estimado en gasolina: ${formatCurrency(generatorFuelCost)} (suponiendo cortes declarados).`,
-        'Mantención periódica (cambios de aceite, filtros) y almacenamiento de combustible.',
-        'No puedes usarlo dentro de casa o departamentos.'
-      ];
+      'Riesgo de ruido >70 dB y emisiones en interiores.',
+      `Costo mensual estimado en gasolina: ${formatCurrency(generatorFuelCost)} (suponiendo cortes declarados).`,
+      'Mantención periódica (cambios de aceite, filtros) y almacenamiento de combustible.',
+      'No puedes usarlo dentro de casa o departamentos.'
+    ];
   drawbacks.forEach((drawback) => {
     const li = document.createElement('li');
     li.classList.add('bad');
@@ -1929,13 +1946,13 @@ function updateWhatsApp(selectedLoads) {
   const loadList = selectedLoads.map((load) => `• ${load.name}: ${load.power} W x ${load.hours} h`).join('%0A');
   const message = encodeURIComponent(
     `Hola! Quiero cotizar el ${kit.name} de EntropyEnergy.%0A%0A` +
-      `Zona: ${region.name} (${region.psh.toFixed(1)} h sol).%0A` +
-      `Uso principal: ${state.useCase === 'outdoor' ? 'Outdoor & Expediciones' : 'Hogar / Pyme'}.%0A` +
-      (state.useCase === 'outdoor' ? `Horas outdoor por día: ${state.outdoorHoursPerDay}.%0A` : '') +
-      `Autonomía objetivo: ${state.daysAutonomy.toFixed(1)} días.%0A` +
-      `Paneles considerados: ${describePanels(state.panelCount)}.%0A` +
-      `Cargas críticas:%0A${loadList}%0A%0A` +
-      `¿Me ayudan a cerrar la compra?`
+    `Zona: ${region.name} (${region.psh.toFixed(1)} h sol).%0A` +
+    `Uso principal: ${state.useCase === 'outdoor' ? 'Outdoor & Expediciones' : 'Hogar / Pyme'}.%0A` +
+    (state.useCase === 'outdoor' ? `Horas outdoor por día: ${state.outdoorHoursPerDay}.%0A` : '') +
+    `Autonomía objetivo: ${state.daysAutonomy.toFixed(1)} días.%0A` +
+    `Paneles considerados: ${describePanels(state.panelCount)}.%0A` +
+    `Cargas críticas:%0A${loadList}%0A%0A` +
+    `¿Me ayudan a cerrar la compra?`
   );
   refs.whatsappLink.href = `https://wa.me/56900000000?text=${message}`;
 }
