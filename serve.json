@@ -1,7 +1,12 @@
 {
     "cleanUrls": false,
     "trailingSlash": false,
+    "directoryListing": false,
     "rewrites": [
+        {
+            "source": "/",
+            "destination": "/index.html"
+        },
         {
             "source": "/product-detail",
             "destination": "/product-detail.html"
