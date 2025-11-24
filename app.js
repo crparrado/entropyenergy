@@ -635,7 +635,7 @@ function attachEvents() {
       }
       state.cartPreviewVisible = true;
       updateCartShortcut();
-      redirectToCheckout('_blank');
+      openCartPopup();
     });
   }
 
@@ -1068,7 +1068,7 @@ function updatePlannerHighlight(cards) {
       refs.highlightBuy.classList.add('disabled');
       refs.highlightBuy.setAttribute('aria-disabled', 'true');
       refs.highlightBuy.dataset.mode = 'disabled';
-      refs.highlightBuy.textContent = 'Comprar kit recomendado';
+      refs.highlightBuy.textContent = 'Agregar al carrito';
     }
     if (refs.highlightCTA) {
       refs.highlightCTA.href = '#kitsModule';
@@ -1157,7 +1157,7 @@ function updatePlannerHighlight(cards) {
     }
   }
   if (refs.highlightBuy) {
-    refs.highlightBuy.textContent = kit.quoteOnly ? 'Pedir cotización' : `Comprar ${kit.name}`;
+    refs.highlightBuy.textContent = kit.quoteOnly ? 'Pedir cotización' : 'Agregar al carrito';
     refs.highlightBuy.dataset.mode = kit.quoteOnly ? 'quote' : 'checkout';
     refs.highlightBuy.classList.remove('disabled');
     refs.highlightBuy.removeAttribute('aria-disabled');

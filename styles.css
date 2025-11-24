@@ -1723,6 +1723,14 @@ footer {
     text-align: center;
   }
 
+  .planner__highlight-info {
+    order: 2;
+  }
+
+  .planner__highlight-visual {
+    order: 1;
+  }
+
   .planner__highlight-cta {
     justify-content: center;
   }
