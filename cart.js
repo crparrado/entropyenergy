@@ -285,7 +285,10 @@ init().catch((error) => {
   console.error('Error inesperado al iniciar el carrito', error);
 });
 
-// Mercado Pago Checkout
+// Mercado Pago Checkout - Direct SDK Integration
+const MP_PUBLIC_KEY = 'APP_USR-4c098929-1ea8-4762-965e-a3e7a2c75a90';
+const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CL' });
+
 async function processCheckout() {
   const activeItems = state.items.filter(item => item.quantity > 0);
 
@@ -301,22 +304,40 @@ async function processCheckout() {
   try {
     // Preparar items para Mercado Pago
     const items = activeItems.map(item => ({
+      id: item.id,
       title: item.name,
+      description: `${item.name} - EntropyEnergy`,
+      quantity: item.quantity,
       unit_price: item.unitPrice,
-      quantity: item.quantity
+      currency_id: 'CLP'
     }));
 
-    // Llamar a la API para crear la preferencia
-    const response = await fetch('/api/create-preference', {
+    const orderData = {
+      items: items,
+      metadata: {
+        kit_id: state.kit?.id,
+        use_case: state.useCase
+      }
+    };
+
+    // Crear preferencia de pago
+    const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer APP_USR-3414557996101562-112320-f571ce9762aaa8a8dc123b8e71c9df73-3010611558`
       },
       body: JSON.stringify({
-        items,
-        payer: {
-          // Aquí puedes agregar info del comprador si la tienes
-        }
+        items: items,
+        back_urls: {
+          success: 'https://www.entropyenergy.cl/payment-success.html',
+          failure: 'https://www.entropyenergy.cl/payment-failure.html',
+          pending: 'https://www.entropyenergy.cl/payment-success.html'
+        },
+        auto_return: 'approved',
+        statement_descriptor: 'ENTROPYENERGY',
+        external_reference: `ORDER-${Date.now()}`,
+        metadata: orderData.metadata
       })
     });
 
@@ -324,12 +345,10 @@ async function processCheckout() {
       throw new Error('Error al crear la preferencia de pago');
     }
 
-    const data = await response.json();
+    const preference = await response.json();
 
     // Redirigir a Mercado Pago
-    // En desarrollo usa sandbox_init_point, en producción usa init_point
-    const checkoutUrl = data.sandbox_init_point || data.init_point;
-    window.location.href = checkoutUrl;
+    window.location.href = preference.init_point;
 
   } catch (error) {
     console.error('Error al procesar el pago:', error);
@@ -343,4 +362,3 @@ async function processCheckout() {
 if (elements.checkoutLink) {
   elements.checkoutLink.addEventListener('click', processCheckout);
 }
-
