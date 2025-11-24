@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Exitoso · EntropyEnergy</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, rgba(0, 216, 180, 0.3), rgba(3, 10, 18, 0.95));
+        }
+
+        .success-container {
+            max-width: 600px;
+            padding: 3rem;
+            background: rgba(4, 15, 26, 0.9);
+            border: 2px solid var(--accent);
+            border-radius: 1.6rem;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-container h1 {
+            color: var(--accent);
+            margin: 0 0 1rem;
+        }
+
+        .success-container p {
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .success-container a {
+            display: inline-block;
+            padding: 0.9rem 1.8rem;
+            background: var(--accent);
+            color: #02161b;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1>¡Pago Exitoso!</h1>
+        <p>Tu compra ha sido procesada correctamente. Recibirás un email de confirmación con los detalles de tu pedido.
+        </p>
+        <p><strong>Número de orden:</strong> <span id="orderId">Cargando...</span></p>
+        <a href="index.html">Volver al inicio</a>
+    </div>
+
+    <script>
+        // Obtener el ID de la orden de los parámetros URL
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('external_reference') || params.get('preference_id') || 'N/A';
+        document.getElementById('orderId').textContent = orderId;
+    </script>
+</body>
+
+</html>

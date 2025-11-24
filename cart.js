@@ -284,3 +284,63 @@ async function init() {
 init().catch((error) => {
   console.error('Error inesperado al iniciar el carrito', error);
 });
+
+// Mercado Pago Checkout
+async function processCheckout() {
+  const activeItems = state.items.filter(item => item.quantity > 0);
+
+  if (activeItems.length === 0) {
+    alert('Tu carrito está vacío');
+    return;
+  }
+
+  // Deshabilitar botón mientras procesa
+  elements.checkoutLink.disabled = true;
+  elements.checkoutLink.textContent = 'Procesando...';
+
+  try {
+    // Preparar items para Mercado Pago
+    const items = activeItems.map(item => ({
+      title: item.name,
+      unit_price: item.unitPrice,
+      quantity: item.quantity
+    }));
+
+    // Llamar a la API para crear la preferencia
+    const response = await fetch('/api/create-preference', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        items,
+        payer: {
+          // Aquí puedes agregar info del comprador si la tienes
+        }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al crear la preferencia de pago');
+    }
+
+    const data = await response.json();
+
+    // Redirigir a Mercado Pago
+    // En desarrollo usa sandbox_init_point, en producción usa init_point
+    const checkoutUrl = data.sandbox_init_point || data.init_point;
+    window.location.href = checkoutUrl;
+
+  } catch (error) {
+    console.error('Error al procesar el pago:', error);
+    alert('Hubo un error al procesar el pago. Por favor intenta nuevamente.');
+    elements.checkoutLink.disabled = false;
+    elements.checkoutLink.textContent = 'Pagar con Mercado Pago';
+  }
+}
+
+// Event listener para el botón de checkout
+if (elements.checkoutLink) {
+  elements.checkoutLink.addEventListener('click', processCheckout);
+}
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Fallido · EntropyEnergy</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, rgba(255, 136, 77, 0.2), rgba(3, 10, 18, 0.95));
+        }
+
+        .failure-container {
+            max-width: 600px;
+            padding: 3rem;
+            background: rgba(4, 15, 26, 0.9);
+            border: 2px solid var(--warning);
+            border-radius: 1.6rem;
+            text-align: center;
+        }
+
+        .failure-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .failure-container h1 {
+            color: var(--warning);
+            margin: 0 0 1rem;
+        }
+
+        .failure-container p {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .failure-container .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .failure-container a {
+            display: inline-block;
+            padding: 0.9rem 1.8rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .failure-container a.primary {
+            background: var(--accent);
+            color: #02161b;
+        }
+
+        .failure-container a.secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="failure-container">
+        <div class="failure-icon">❌</div>
+        <h1>Pago No Completado</h1>
+        <p>Tu pago no pudo ser procesado. Esto puede deberse a fondos insuficientes, datos incorrectos o una cancelación
+            manual.</p>
+        <p>No te preocupes, no se ha realizado ningún cargo a tu cuenta.</p>
+        <div class="actions">
+            <a href="cart.html" class="primary">Intentar nuevamente</a>
+            <a href="index.html" class="secondary">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+
+</html>

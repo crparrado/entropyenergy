@@ -10,6 +10,7 @@
     "node": "18.x"
   },
   "dependencies": {
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "mercadopago": "^2.0.15"
   }
 }

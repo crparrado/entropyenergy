@@ -1,0 +1,15 @@
+{
+    "name": "entropyenergy-api",
+    "version": "1.0.0",
+    "description": "Serverless API for EntropyEnergy payments",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node api/create-preference.js"
+    },
+    "dependencies": {
+        "mercadopago": "^2.0.15"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
