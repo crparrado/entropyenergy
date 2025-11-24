@@ -1,269 +1,284 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mantenedor de productos</title>
+  <title>Admin Panel · EntropyEnergy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      background: #050a13;
-      color: #f1f6ff;
-      font-family: 'Outfit', sans-serif;
-      margin: 0;
+      background: radial-gradient(circle at top, rgba(0, 216, 180, 0.15), rgba(3, 10, 18, 0.98));
       min-height: 100vh;
     }
-    main {
-      width: min(1200px, 95vw);
-      margin: 3rem auto;
-      background: rgba(5, 16, 28, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1.2rem;
-      padding: 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-    h1 {
-      margin-top: 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1.5rem;
-    }
-    th, td {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 0.6rem;
-      text-align: left;
-      vertical-align: top;
-    }
-    thead {
-      background: rgba(0, 216, 180, 0.12);
-    }
-    input, textarea, select {
-      width: 100%;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(3, 10, 18, 0.8);
-      color: #f1f6ff;
-      padding: 0.4rem 0.6rem;
-      font-family: inherit;
-    }
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-    .actions {
-      margin-top: 1rem;
+
+    /* Login Screen */
+    .login-container {
       display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
     }
-    button {
+
+    .login-box {
+      max-width: 400px;
+      width: 100%;
+      padding: 2.5rem;
+      background: rgba(4, 15, 26, 0.95);
+      border: 1px solid rgba(0, 216, 180, 0.3);
+      border-radius: 1.6rem;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      margin: 0 0 0.5rem;
+      color: var(--accent);
+    }
+
+    .login-box p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .login-form input {
+      padding: 0.9rem 1.2rem;
+      background: rgba(3, 12, 20, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .login-form button {
+      padding: 0.9rem 1.8rem;
+      background: var(--accent);
+      color: #02161b;
       border: none;
       border-radius: 999px;
-      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .login-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 216, 180, 0.25);
+    }
+
+    .error-message {
+      color: var(--warning);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Admin Panel */
+    .admin-container {
+      display: none;
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .admin-container.active {
+      display: block;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(4, 15, 26, 0.85);
+      border: 1px solid rgba(0, 216, 180, 0.18);
+      border-radius: 1.2rem;
+    }
+
+    .admin-header h1 {
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .admin-header button {
+      padding: 0.7rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .products-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: rgba(4, 15, 26, 0.85);
+      border: 1px solid rgba(0, 216, 180, 0.18);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      background: rgba(3, 12, 20, 0.9);
+      border-radius: 0.8rem;
+      padding: 1rem;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .product-info h3 {
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 0.7rem 1rem;
+      background: rgba(3, 12, 20, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.6rem;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .product-actions button {
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
       font-weight: 600;
       cursor: pointer;
+      border: none;
     }
-    .primary {
-      background: linear-gradient(135deg, #00d8b4 0%, #00a4ff 100%);
-      color: #05121c;
+
+    .btn-save {
+      background: var(--accent);
+      color: #02161b;
     }
-    .ghost {
+
+    .btn-cancel {
       background: transparent;
-      border: 1px solid rgba(0, 216, 180, 0.4);
-      color: #00d8b4;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: var(--muted);
     }
-    .note {
-      color: #9fb3d6;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
+
+    .save-indicator {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--accent);
+      color: #02161b;
+      border-radius: 999px;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0, 216, 180, 0.4);
+      display: none;
+      animation: slideIn 0.3s ease;
     }
-    .danger {
-      color: #ff884d;
-      cursor: pointer;
+
+    .save-indicator.show {
+      display: block;
     }
-    .status {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      color: #9fb3d6;
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
-    .status--success {
-      color: #00d8b4;
-    }
-    .status--error {
-      color: #ff884d;
+
+    @media (max-width: 768px) {
+      .product-card {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>Mantenedor de productos</h1>
-    <p>Usa este panel para editar los datos mostrados en la pestaña <strong>Productos</strong>. Ahora puedes guardar tus cambios directamente en el navegador y el resto del sitio los leerá de inmediato.</p>
-    <p class="note">Campos "Imágenes" e "Incluye" aceptan una línea por elemento. Los valores numéricos admiten decimales. Puedes descargar un respaldo en JSON o restablecer los valores originales cuando lo necesites.</p>
-    <table id="productTable">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Potencia (W)</th>
-          <th>Capacidad (Wh)</th>
-          <th>Precio CLP</th>
-          <th>Stock</th>
-          <th>Resumen</th>
-          <th>Imágenes (una por línea)</th>
-          <th>Incluye (una por línea)</th>
-          <th>Ficha técnica</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <div class="actions">
-      <button type="button" class="primary" id="saveProducts">Guardar cambios (se aplican en este navegador)</button>
-      <button type="button" id="addProduct">Agregar producto</button>
-      <button type="button" class="ghost" id="exportJson">Descargar JSON actualizado</button>
-      <button type="button" class="ghost" id="resetCatalog">Restablecer desde JSON original</button>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-box">
+      <h1>🔐 Admin Panel</h1>
+      <p>Gestiona el inventario de EntropyEnergy</p>
+      <form class="login-form" id="loginForm">
+        <input type="password" id="passwordInput" placeholder="Contraseña" required autocomplete="current-password">
+        <button type="submit">Ingresar</button>
+        <div class="error-message" id="loginError"></div>
+      </form>
     </div>
-    <p id="saveStatus" class="status"></p>
-  </main>
+  </div>
 
-  <script type="module">
-    import { loadCatalog, saveCatalog, clearCatalogOverride } from './catalog.js';
+  <!-- Admin Panel -->
+  <div class="admin-container" id="adminPanel">
+    <div class="admin-header">
+      <h1>📦 Gestión de Productos</h1>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
 
-    const tableBody = document.querySelector('#productTable tbody');
-    const addButton = document.getElementById('addProduct');
-    const exportButton = document.getElementById('exportJson');
-    const saveButton = document.getElementById('saveProducts');
-    const resetButton = document.getElementById('resetCatalog');
-    const statusNode = document.getElementById('saveStatus');
-    let products = [];
+  <div class="save-indicator" id="saveIndicator">✓ Cambios guardados</div>
 
-    function setStatus(message, tone = 'info') {
-      if (!statusNode) return;
-      statusNode.textContent = message;
-      statusNode.classList.remove('status--success', 'status--error');
-      if (tone === 'success') {
-        statusNode.classList.add('status--success');
-      } else if (tone === 'error') {
-        statusNode.classList.add('status--error');
-      }
-    }
-
-    async function init() {
-      try {
-        products = await loadCatalog();
-        renderTable();
-        setStatus('Catálogo cargado. Guarda los cambios para aplicarlos al sitio.', 'success');
-      } catch (error) {
-        console.error('No se pudo cargar el catálogo', error);
-        products = [];
-        renderTable();
-        setStatus('No se pudo cargar el catálogo base. Revisa la consola.', 'error');
-      }
-    }
-
-    function renderTable() {
-      tableBody.innerHTML = '';
-      if (products.length === 0) {
-        const empty = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 12;
-        cell.textContent = 'Aún no hay productos. Agrega uno nuevo para comenzar.';
-        empty.appendChild(cell);
-        tableBody.appendChild(empty);
-        return;
-      }
-      products.forEach((product, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><input data-field="id" data-index="${index}" value="${product.id || ''}"></td>
-          <td><input data-field="name" data-index="${index}" value="${product.name || ''}"></td>
-          <td><input data-field="category" data-index="${index}" value="${product.category || ''}"></td>
-          <td><input type="number" data-field="power_w" data-index="${index}" value="${product.power_w ?? ''}"></td>
-          <td><input type="number" data-field="capacity_wh" data-index="${index}" value="${product.capacity_wh ?? ''}"></td>
-          <td><input type="number" data-field="price_clp" data-index="${index}" value="${product.price_clp ?? ''}"></td>
-          <td><input type="number" data-field="stock" data-index="${index}" value="${product.stock ?? ''}"></td>
-          <td><textarea data-field="summary" data-index="${index}">${product.summary || ''}</textarea></td>
-          <td><textarea data-field="images" data-index="${index}">${(product.images || []).join('\n')}</textarea></td>
-          <td><textarea data-field="includes" data-index="${index}">${(product.includes || []).join('\n')}</textarea></td>
-          <td><input data-field="datasheet" data-index="${index}" value="${product.datasheet || ''}"></td>
-          <td><button type="button" class="danger" data-remove="${index}">Eliminar</button></td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-
-    tableBody.addEventListener('input', (event) => {
-      const target = event.target;
-      const index = Number(target.dataset.index);
-      const field = target.dataset.field;
-      if (!Number.isInteger(index) || !field) return;
-      let value = target.value;
-      if (['power_w', 'capacity_wh', 'price_clp', 'stock'].includes(field)) {
-        value = value === '' ? null : Number(value);
-      } else if (field === 'images' || field === 'includes') {
-        value = value
-          .split('\n')
-          .map((item) => item.trim())
-          .filter(Boolean);
-      }
-      products[index][field] = value;
-    });
-
-    tableBody.addEventListener('click', (event) => {
-      const { remove } = event.target.dataset;
-      if (remove !== undefined) {
-        products.splice(Number(remove), 1);
-        renderTable();
-      }
-    });
-
-    addButton.addEventListener('click', () => {
-      products.push({
-        id: `producto-${Date.now()}`,
-        name: '',
-        category: 'baterias',
-        power_w: null,
-        capacity_wh: null,
-        price_clp: null,
-        stock: null,
-        summary: '',
-        images: [],
-        includes: [],
-        datasheet: ''
-      });
-      renderTable();
-    });
-
-    saveButton.addEventListener('click', () => {
-      try {
-        saveCatalog(products);
-        setStatus('Cambios guardados. Vuelve a la landing para verificar los precios.', 'success');
-      } catch (error) {
-        console.error('No se pudieron guardar los cambios', error);
-        setStatus('No se pudieron guardar los cambios en este navegador.', 'error');
-      }
-    });
-
-    resetButton.addEventListener('click', async () => {
-      clearCatalogOverride();
-      setStatus('Se restauró el catálogo original.', 'success');
-      await init();
-    });
-
-    exportButton.addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'products.json';
-      link.click();
-      URL.revokeObjectURL(url);
-    });
-
-    init();
-  </script>
+  <script type="module" src="admin.js"></script>
 </body>
+
 </html>
