@@ -286,7 +286,7 @@ init().catch((error) => {
 });
 
 // Mercado Pago Checkout - Direct SDK Integration
-const MP_PUBLIC_KEY = 'APP_USR-4c098929-1ea8-4762-965e-a3e7a2c75a90';
+const MP_PUBLIC_KEY = 'APP_USR-8cbfa09f-d330-4422-9a0d-cd3b9920c0f4';
 const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CL' });
 
 async function processCheckout() {
@@ -325,7 +325,7 @@ async function processCheckout() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer APP_USR-3414557996101562-112320-f571ce9762aaa8a8dc123b8e71c9df73-3010611558`
+        'Authorization': `Bearer APP_USR-8416067423475798-112320-ecf32d3613bef2d14123461789d5c8d7-156125574`
       },
       body: JSON.stringify({
         items: items,
