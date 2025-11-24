@@ -50,3 +50,34 @@ function formatCurrency(value) {
 }
 
 loadProducts();
+
+// Mobile Menu Toggle
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu__link');
+
+if (navToggle && mobileMenu && mobileMenuOverlay) {
+  function toggleMenu() {
+    const isActive = mobileMenu.classList.contains('active');
+    navToggle.classList.toggle('active', !isActive);
+    mobileMenu.classList.toggle('active', !isActive);
+    mobileMenuOverlay.classList.toggle('active', !isActive);
+    document.body.style.overflow = isActive ? '' : 'hidden';
+  }
+
+  function closeMenu() {
+    navToggle.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    mobileMenuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  navToggle.addEventListener('click', toggleMenu);
+  mobileMenuOverlay.addEventListener('click', closeMenu);
+
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+}
+

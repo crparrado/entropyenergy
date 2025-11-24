@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="images/logos/EntropyEnergy_favicon_E2_square.png">
 </head>
+
 <body class="page-products">
   <nav class="site-nav">
     <div class="site-nav__inner">
       <a class="site-nav__logo" href="index.html">
         <img src="images/logos/entropyenergylogoblanco.png" alt="EntropyEnergy" />
       </a>
-      <ul>
+      <ul class="desktop-menu">
         <li><a href="index.html#hero">Inicio</a></li>
         <li><a href="index.html#quickScenarios">Escenarios</a></li>
         <li><a class="active" href="products.html">Productos</a></li>
@@ -21,23 +23,45 @@
         <li><a href="index.html#planner">Planificador</a></li>
         <li><a href="index.html#contactCTA">Contacto</a></li>
       </ul>
-      <button class="site-nav__cart" type="button" aria-label="Ir al carrito" onclick="window.location.href='cart.html'">
+      <button class="site-nav__cart" type="button" aria-label="Ir al carrito"
+        onclick="window.location.href='cart.html'">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z"/>
-          <circle cx="10" cy="21" r="1.6"/>
-          <circle cx="18" cy="21" r="1.6"/>
+          <path
+            d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45A1 1 0 0 0 9.16 19h10.84v-2H11l.1-.18 1-1.82h6.58a1 1 0 0 0 .95-.68l2-6A1 1 0 0 0 20.68 7H9.12Z" />
+          <circle cx="10" cy="21" r="1.6" />
+          <circle cx="18" cy="21" r="1.6" />
         </svg>
+      </button>
+      <button class="site-nav__toggle" id="navToggle" type="button" aria-label="Abrir menú">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
       </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__content">
+      <a href="index.html#hero" class="mobile-menu__link">Inicio</a>
+      <a href="index.html#quickScenarios" class="mobile-menu__link">Escenarios</a>
+      <a href="products.html" class="mobile-menu__link">Productos</a>
+      <a href="index.html#panelAccessory" class="mobile-menu__link">Panel plegable</a>
+      <a href="index.html#planner" class="mobile-menu__link">Planificador</a>
+      <a href="index.html#contactCTA" class="mobile-menu__link">Contacto</a>
+    </div>
+  </div>
+  <div class="mobile-menu__overlay" id="mobileMenuOverlay"></div>
   <main class="products-page">
     <header class="products-page__hero">
       <span class="eyebrow">Catálogo</span>
       <h1>Todas las soluciones portátiles</h1>
-      <p>Compara potencia continua, energía disponible, precio y stock actualizado. Haz clic en cualquier producto para ver sus detalles completos.</p>
+      <p>Compara potencia continua, energía disponible, precio y stock actualizado. Haz clic en cualquier producto para
+        ver sus detalles completos.</p>
     </header>
     <div id="allProducts" class="products-grid products-grid--gallery"></div>
   </main>
   <script type="module" src="products.v2.js"></script>
 </body>
+
 </html>
