@@ -1,5 +1,6 @@
 // Admin Panel JavaScript
 import { loadCatalog, saveCatalog, clearCatalogOverride } from './catalog.js';
+import { db, collection, getDocs, query, orderBy } from './firebase.js';
 
 // Password protection
 const ADMIN_PASSWORD = 'entropy2024'; // Cambia esto por tu contraseña
@@ -173,7 +174,7 @@ tabs.forEach(tab => {
     });
 });
 
-import { db, collection, getDocs, query, orderBy } from './firebase.js';
+
 
 // Load Orders from Firebase
 async function loadOrders() {
