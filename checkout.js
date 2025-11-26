@@ -144,6 +144,9 @@ elements.payButton.addEventListener('click', async () => {
         const orderId = docRef.id;
         console.log("Order written with ID: ", orderId);
 
+        // 1.5 Update Local Stock (Optimistic - for demo/local admin)
+        updateLocalStock(cart);
+
         elements.payButton.textContent = 'Redirigiendo a pago...';
 
         // 2. Create Preference (Mercado Pago)
@@ -212,5 +215,29 @@ elements.payButton.addEventListener('click', async () => {
         elements.payButton.textContent = 'Ir a Pagar';
     }
 });
+
+function updateLocalStock(cartItems) {
+    try {
+        const savedCatalog = localStorage.getItem('entropy_catalog_v2');
+        if (savedCatalog) {
+            const catalog = JSON.parse(savedCatalog);
+            let updated = false;
+
+            cartItems.forEach(item => {
+                const productIndex = catalog.findIndex(p => p.id === item.productId);
+                if (productIndex !== -1 && typeof catalog[productIndex].stock === 'number') {
+                    catalog[productIndex].stock = Math.max(0, catalog[productIndex].stock - item.quantity);
+                    updated = true;
+                }
+            });
+
+            if (updated) {
+                localStorage.setItem('entropy_catalog_v2', JSON.stringify(catalog));
+            }
+        }
+    } catch (e) {
+        console.error("Error updating local stock:", e);
+    }
+}
 
 init();
