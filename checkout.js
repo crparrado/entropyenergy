@@ -2,7 +2,7 @@ import { loadCatalog } from './catalog.js';
 import { db, collection, addDoc, Timestamp } from './firebase.js';
 
 // Mercado Pago Public Key
-const MP_PUBLIC_KEY = 'APP_USR-49430489-0824-4299-a86d-007f3542750e'; // Tu clave pública
+const MP_PUBLIC_KEY = 'APP_USR-8cbfa09f-d330-4422-9a0d-cd3b9920c0f4'; // Clave pública correcta
 
 const regions = [
     "Arica y Parinacota", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo",
@@ -186,7 +186,7 @@ elements.payButton.addEventListener('click', async () => {
         const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer APP_USR-49430489-0824-4299-a86d-007f3542750e',
+                'Authorization': 'Bearer APP_USR-8416067423475798-112320-ecf32d3613bef2d14123461789d5c8d7-156125574', // Access Token Correcto
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(preferenceData)
