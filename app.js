@@ -629,7 +629,7 @@ function attachEvents() {
       }
       event.preventDefault();
       if (mode === 'quote') {
-        const url = refs.whatsappLink?.href || 'https://wa.me/56900000000';
+        const url = refs.whatsappLink?.href || 'https://wa.me/56995049268';
         window.open(url, '_blank');
         return;
       }
@@ -975,7 +975,7 @@ function renderKitCards() {
   buyButton.dataset.mode = kit.quoteOnly ? 'quote' : 'checkout';
   buyButton.addEventListener('click', () => {
     if (kit.quoteOnly) {
-      const url = refs.whatsappLink?.href || 'https://wa.me/56900000000';
+      const url = refs.whatsappLink?.href || 'https://wa.me/56995049268';
       window.open(url, '_blank');
       return;
     }
@@ -1958,7 +1958,7 @@ function updateWhatsApp(selectedLoads) {
     `Cargas críticas:%0A${loadList}%0A%0A` +
     `¿Me ayudan a cerrar la compra?`
   );
-  refs.whatsappLink.href = `https://wa.me/56900000000?text=${message}`;
+  refs.whatsappLink.href = `https://wa.me/56995049268?text=${message}`;
 }
 
 function renderGeneratorFacts() {

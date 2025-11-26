@@ -233,7 +233,7 @@ function updateSummary() {
   ];
 
   const message = encodeURIComponent(messageParts.join('\n'));
-  elements.checkoutLink.href = `https://wa.me/56900000000?text=${message}`;
+  elements.checkoutLink.href = `https://wa.me/56995049268?text=${message}`;
   elements.checkoutLink.classList.remove('disabled');
 }
 
