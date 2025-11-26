@@ -153,5 +153,110 @@ function showSaveIndicator() {
     }, 2000);
 }
 
+// Tab Switching
+const tabs = document.querySelectorAll('.tab-btn');
+const contents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        // Add active class to clicked
+        tab.classList.add('active');
+        document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+
+        if (tab.dataset.tab === 'orders') {
+            loadOrders();
+        }
+    });
+});
+
+import { db, collection, getDocs, query, orderBy } from './firebase.js';
+
+// Load Orders from Firebase
+async function loadOrders() {
+    const ordersList = document.getElementById('ordersList');
+    ordersList.innerHTML = '<p style="text-align: center; color: var(--muted);">Cargando órdenes...</p>';
+
+    try {
+        const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            ordersList.innerHTML = '<p style="text-align: center; color: var(--muted);">No hay órdenes registradas aún.</p>';
+            return;
+        }
+
+        ordersList.innerHTML = '';
+
+        querySnapshot.forEach((doc) => {
+            const order = doc.data();
+            const date = order.createdAt?.toDate ? order.createdAt.toDate().toLocaleString('es-CL') : 'Fecha desconocida';
+
+            const card = document.createElement('div');
+            card.className = 'order-card';
+            card.innerHTML = `
+        <div class="order-header">
+          <span class="order-id">ID: ${doc.id}</span>
+          <span class="order-date">${date}</span>
+        </div>
+        <div class="order-details">
+          <div class="order-customer">
+            <h4>Cliente</h4>
+            <p>
+              <strong>${order.customer.firstName} ${order.customer.lastName}</strong><br>
+              ${order.customer.email}<br>
+              ${order.customer.phone}<br>
+              ${order.customer.address}, ${order.customer.city}<br>
+              ${order.customer.region}
+            </p>
+          </div>
+          <div class="order-items">
+            <h4>Items</h4>
+            <ul>
+              ${order.items.map(item => `
+                <li>
+                  <span>${item.quantity}x ${item.name}</span>
+                  <span>$${(item.total || 0).toLocaleString('es-CL')}</span>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="order-total">
+              Total: $${(order.total || 0).toLocaleString('es-CL')}
+            </div>
+            <div style="margin-top: 0.5rem; text-align: right;">
+              <span style="
+                background: ${order.status === 'paid' ? 'rgba(0, 216, 180, 0.2)' : 'rgba(255, 193, 7, 0.2)'}; 
+                color: ${order.status === 'paid' ? '#00d8b4' : '#ffc107'}; 
+                padding: 0.2rem 0.6rem; 
+                border-radius: 4px; 
+                font-size: 0.85rem; 
+                font-weight: 600;">
+                ${order.status === 'paid' ? 'PAGADO' : 'PENDIENTE'}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+            ordersList.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error loading orders:", error);
+        ordersList.innerHTML = `<p style="text-align: center; color: red;">Error al cargar órdenes: ${error.message}</p>`;
+    }
+}
+
 // Initialize
-checkAuth();
+try {
+    checkAuth();
+} catch (error) {
+    console.error('Error during initialization:', error);
+    document.body.innerHTML += `<div style="color: red; padding: 20px;">Error crítico al iniciar: ${error.message}</div>`;
+}
+
+window.addEventListener('error', (event) => {
+    document.body.innerHTML += `<div style="color: red; padding: 20px;">Error de script: ${event.message}</div>`;
+});

@@ -285,10 +285,7 @@ init().catch((error) => {
   console.error('Error inesperado al iniciar el carrito', error);
 });
 
-// Mercado Pago Checkout - Direct SDK Integration
-const MP_PUBLIC_KEY = 'APP_USR-8cbfa09f-d330-4422-9a0d-cd3b9920c0f4';
-const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-CL' });
-
+// Checkout Redirection
 async function processCheckout() {
   const activeItems = state.items.filter(item => item.quantity > 0);
 
@@ -297,68 +294,24 @@ async function processCheckout() {
     return;
   }
 
-  // Deshabilitar botón mientras procesa
-  elements.checkoutLink.disabled = true;
-  elements.checkoutLink.textContent = 'Procesando...';
+  // Prepare cart data for checkout page
+  const cartData = activeItems.map(item => ({
+    productId: item.id,
+    quantity: item.quantity
+  }));
 
-  try {
-    // Preparar items para Mercado Pago
-    const items = activeItems.map(item => ({
-      id: item.id,
-      title: item.name,
-      description: `${item.name} - EntropyEnergy`,
-      quantity: item.quantity,
-      unit_price: item.unitPrice,
-      currency_id: 'CLP'
-    }));
+  // Save to localStorage
+  localStorage.setItem('entropy_cart', JSON.stringify(cartData));
 
-    const orderData = {
-      items: items,
-      metadata: {
-        kit_id: state.kit?.id,
-        use_case: state.useCase
-      }
-    };
-
-    // Crear preferencia de pago
-    const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer APP_USR-8416067423475798-112320-ecf32d3613bef2d14123461789d5c8d7-156125574`
-      },
-      body: JSON.stringify({
-        items: items,
-        back_urls: {
-          success: 'https://www.entropyenergy.cl/payment-success.html',
-          failure: 'https://www.entropyenergy.cl/payment-failure.html',
-          pending: 'https://www.entropyenergy.cl/payment-success.html'
-        },
-        auto_return: 'approved',
-        statement_descriptor: 'ENTROPYENERGY',
-        external_reference: `ORDER-${Date.now()}`,
-        metadata: orderData.metadata
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al crear la preferencia de pago');
-    }
-
-    const preference = await response.json();
-
-    // Redirigir a Mercado Pago
-    window.location.href = preference.init_point;
-
-  } catch (error) {
-    console.error('Error al procesar el pago:', error);
-    alert('Hubo un error al procesar el pago. Por favor intenta nuevamente.');
-    elements.checkoutLink.disabled = false;
-    elements.checkoutLink.textContent = 'Pagar con Mercado Pago';
-  }
+  // Redirect to checkout page
+  window.location.href = 'checkout.html';
 }
 
 // Event listener para el botón de checkout
 if (elements.checkoutLink) {
-  elements.checkoutLink.addEventListener('click', processCheckout);
+  elements.checkoutLink.textContent = 'Ir a Pagar';
+  elements.checkoutLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    processCheckout();
+  });
 }
