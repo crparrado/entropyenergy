@@ -41,7 +41,10 @@ function checkAuth() {
 // Login handler
 elements.loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const password = elements.passwordInput.value;
+  const password = elements.passwordInput.value.trim(); // Added trim()
+
+  console.log('Input Password:', password); // Debug
+  console.log('Expected Password:', ADMIN_PASSWORD); // Debug
 
   if (password === ADMIN_PASSWORD) {
     isAuthenticated = true;
