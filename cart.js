@@ -221,18 +221,7 @@ function updateSummary() {
   const bodyLines = optionalLine ? [...summaryLines, optionalLine] : summaryLines;
   const body = bodyLines.join('\n');
 
-  const messageParts = [
-    `Hola! Quiero confirmar la compra del ${state.kit.name}.`,
-    '',
-    body,
-    '',
-    `Uso principal: ${state.useCase === 'outdoor' ? 'Outdoor & Expediciones' : 'Hogar / Pyme'}.`,
-    `Total: ${formatCurrency(total)}.`,
-    '',
-    '¿Me ayudan con el proceso de pago y entrega?'
-  ];
-
-  const message = encodeURIComponent(messageParts.join('\n'));
+  const message = encodeURIComponent('Hola! tengo algunas preguntas sobre una bateria que vi en la página web. Me podrían ayudar?');
   elements.checkoutLink.href = `https://wa.me/56995049268?text=${message}`;
   elements.checkoutLink.classList.remove('disabled');
 }

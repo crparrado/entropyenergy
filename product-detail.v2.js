@@ -36,7 +36,8 @@ function renderProduct(product) {
   const stockLabel = typeof product.stock === 'number'
     ? `${product.stock} unidades disponibles`
     : 'Stock bajo pedido';
-  const whatsappLink = 'https://wa.me/56995049268';
+  const message = encodeURIComponent('Hola! tengo algunas preguntas sobre una bateria que vi en la página web. Me podrían ayudar?');
+  const whatsappLink = `https://wa.me/56995049268?text=${message}`;
   detailContainer.innerHTML = `
     <div class="product-media">
       <div class="product-media__main">

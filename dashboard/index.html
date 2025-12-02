@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación Energética - Antonio Varas</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo-icon">⚡</div>
+                    <div>
+                        <h1>Simulación de Demanda Energética</h1>
+                        <p class="subtitle">Sede Antonio Varas • Remarcadores Inteligentes</p>
+                    </div>
+                </div>
+                <div class="status-badge">
+                    <span class="dot"></span> Sistema Activo
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Controls Section -->
+            <section class="card controls-card">
+                <div class="card-header">
+                    <h2>Parámetros de Simulación</h2>
+                    <p>Ajuste las variables para proyectar el consumo.</p>
+                </div>
+
+                <div class="controls-list">
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="tempRange">Temperatura Base (°C)</label>
+                            <span id="tempValue" class="value-display">22°C</span>
+                        </div>
+                        <input type="range" id="tempRange" min="10" max="35" value="22" step="1">
+                        <div class="range-labels">
+                            <span>10°C</span>
+                            <span>35°C</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="occupancyRange">Ocupación (%)</label>
+                            <span id="occupancyValue" class="value-display">80%</span>
+                        </div>
+                        <input type="range" id="occupancyRange" min="0" max="100" value="80" step="5">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="efficiencyRange">Factor de Eficiencia</label>
+                            <span id="efficiencyValue" class="value-display">1.0x</span>
+                        </div>
+                        <input type="range" id="efficiencyRange" min="0.5" max="1.5" value="1.0" step="0.1">
+                        <div class="range-labels">
+                            <span>Alta (0.5)</span>
+                            <span>Baja (1.5)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-item">
+                        <span class="kpi-label">Consumo Base</span>
+                        <span class="kpi-value" id="baseKpi">-- kWh</span>
+                    </div>
+                    <div class="kpi-item highlight">
+                        <span class="kpi-label">Proyectado</span>
+                        <span class="kpi-value" id="simKpi">-- kWh</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visualization Section -->
+            <section class="card chart-card">
+                <div class="card-header">
+                    <h2>Proyección de Consumo (24 Horas)</h2>
+                    <div class="legend-custom">
+                        <span class="legend-item"><span class="color-dot base"></span> Histórico</span>
+                        <span class="legend-item"><span class="color-dot sim"></span> Simulado</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1947,16 +1947,9 @@ function updateWhatsApp(selectedLoads) {
   const kit = getRecommendedKit();
   if (!kit) return;
   const region = getRegion();
-  const loadList = selectedLoads.map((load) => `• ${load.name}: ${load.power} W x ${load.hours} h`).join('%0A');
+  const loadList = selectedLoads.map((load) => `• ${load.name}: ${load.power} W x ${load.hours} h`).join('\n');
   const message = encodeURIComponent(
-    `Hola! Quiero cotizar el ${kit.name} de EntropyEnergy.%0A%0A` +
-    `Zona: ${region.name} (${region.psh.toFixed(1)} h sol).%0A` +
-    `Uso principal: ${state.useCase === 'outdoor' ? 'Outdoor & Expediciones' : 'Hogar / Pyme'}.%0A` +
-    (state.useCase === 'outdoor' ? `Horas outdoor por día: ${state.outdoorHoursPerDay}.%0A` : '') +
-    `Autonomía objetivo: ${state.daysAutonomy.toFixed(1)} días.%0A` +
-    `Paneles considerados: ${describePanels(state.panelCount)}.%0A` +
-    `Cargas críticas:%0A${loadList}%0A%0A` +
-    `¿Me ayudan a cerrar la compra?`
+    `Hola! tengo algunas preguntas sobre una bateria que vi en la página web. Me podrían ayudar?`
   );
   refs.whatsappLink.href = `https://wa.me/56995049268?text=${message}`;
 }
