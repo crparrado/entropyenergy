@@ -373,6 +373,129 @@
       color: var(--accent);
       font-size: 1.1rem;
     }
+
+    /* Chat Inbox */
+    .chat-container {
+      display: flex;
+      height: 70vh;
+      background: rgba(4, 15, 26, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .chat-sidebar {
+      width: 300px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .conversation-item {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .conversation-item:hover,
+    .conversation-item.active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .conversation-item h4 {
+      margin: 0 0 0.3rem;
+      color: var(--text);
+    }
+
+    .conversation-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message.received {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.1);
+      border-bottom-left-radius: 0.2rem;
+    }
+
+    .message.sent {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #000;
+      border-bottom-right-radius: 0.2rem;
+    }
+
+    .chat-input-area {
+      padding: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    .chat-input-area button {
+      padding: 0 1.5rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .chat-input-area button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 
@@ -400,6 +523,7 @@
     <div class="admin-tabs">
       <button class="tab-btn active" data-tab="products">Productos</button>
       <button class="tab-btn" data-tab="orders">Órdenes</button>
+      <button class="tab-btn" data-tab="messages">Mensajes</button>
     </div>
 
     <!-- Products Tab -->
@@ -411,6 +535,25 @@
     <div class="tab-content" id="tab-orders">
       <div class="orders-list" id="ordersList">
         <p style="color: var(--muted); text-align: center;">Cargando órdenes...</p>
+      </div>
+    </div>
+
+    <!-- Messages Tab -->
+    <div class="tab-content" id="tab-messages">
+      <div class="chat-container">
+        <div class="chat-sidebar">
+          <div class="chat-list" id="chatList">
+            <p style="color: var(--muted); text-align: center; padding: 1rem;">Cargando chats...</p>
+          </div>
+        </div>
+        <div class="chat-main">
+          <div class="chat-header" id="chatHeader">Selecciona un chat</div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Escribe un mensaje..." disabled>
+            <button id="sendBtn" disabled>Enviar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
