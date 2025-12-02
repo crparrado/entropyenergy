@@ -4,7 +4,7 @@ import { db, collection, getDocs, query, orderBy, onSnapshot, limit, where, addD
 
 // Password protection
 const ADMIN_PASSWORD = 'entropy2024'; // Cambia esto por tu contraseña
-const N8N_WEBHOOK_URL = 'https://primary-production-7694.up.railway.app/webhook/send-message'; // Reemplazar con tu URL real
+const N8N_WEBHOOK_URL = 'https://automations.entropyenergy.cl/webhook/send-message'; // URL de Producción
 
 const elements = {
   loginScreen: document.getElementById('loginScreen'),
