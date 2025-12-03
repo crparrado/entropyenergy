@@ -293,14 +293,19 @@ function initChat() {
 
     snapshot.forEach((doc) => {
       const msg = doc.data();
-      console.log("📩 Mensaje recibido:", msg); // Debug log
+      // Log full content to see structure
+      console.log("📩 Contenido:", JSON.stringify(msg));
+
       msg.id = doc.id;
       allMessages.push(msg);
 
       // Determine Conversation ID (Phone Number)
       const phone = msg.direction === 'inbound' ? msg.from : msg.to;
 
-      if (!phone) return; // Skip if no phone
+      if (!phone) {
+        console.warn("⚠️ Saltando mensaje sin teléfono:", msg);
+        return;
+      }
 
       if (!conversations[phone]) {
         conversations[phone] = {
@@ -312,6 +317,8 @@ function initChat() {
       }
       conversations[phone].messages.push(msg);
     });
+
+    console.log(`💬 Conversaciones agrupadas: ${Object.keys(conversations).length}`); // Debug
 
     // Helper to handle both Firestore Timestamp and String dates
     const getDate = (ts) => {
