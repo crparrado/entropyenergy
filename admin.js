@@ -317,6 +317,13 @@ function initChat() {
     if (activeChatId) {
       renderChatMessages(activeChatId);
     }
+  }, (error) => {
+    console.error("❌ Error cargando chats:", error);
+    if (error.message.includes("index")) {
+      alert("⚠️ Faltan índices en Firebase. Abre la consola (F12) y haz clic en el enlace largo que aparece para crearlos.");
+    } else {
+      alert("Error cargando mensajes: " + error.message);
+    }
   });
 }
 
