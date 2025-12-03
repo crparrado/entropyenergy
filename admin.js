@@ -269,11 +269,16 @@ async function loadOrders() {
 // ==========================================
 
 function initChat() {
-  if (unsubscribeChat) return; // Already listening
+  console.log("🚀 Iniciando chat..."); // Debug log
+  if (unsubscribeChat) {
+    console.log("⚠️ Chat ya estaba iniciado.");
+    return;
+  }
 
   const q = query(collection(db, "chats"), orderBy("timestamp", "desc"), limit(500));
 
   unsubscribeChat = onSnapshot(q, (snapshot) => {
+    console.log(`🔥 Snapshot recibido. Docs: ${snapshot.size}`); // Debug log
     conversations = {}; // Reset and rebuild
     const allMessages = [];
 
