@@ -169,11 +169,17 @@ function showSaveIndicator() {
 }
 
 // Tab Switching
+console.log("🔄 Configurando pestañas..."); // Debug
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.tab-content');
 
+console.log(`Found ${tabs.length} tabs`); // Debug
+
 tabs.forEach(tab => {
+  console.log(`Attaching listener to tab: ${tab.dataset.tab}`); // Debug
   tab.addEventListener('click', () => {
+    console.log(`👆 Click en pestaña: ${tab.dataset.tab}`); // Debug
+
     // Remove active class from all
     tabs.forEach(t => t.classList.remove('active'));
     contents.forEach(c => c.classList.remove('active'));
@@ -185,6 +191,7 @@ tabs.forEach(tab => {
     if (tab.dataset.tab === 'orders') {
       loadOrders();
     } else if (tab.dataset.tab === 'messages') {
+      console.log("📞 Llamando a initChat()..."); // Debug
       initChat();
     }
   });
