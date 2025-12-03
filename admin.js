@@ -279,27 +279,38 @@ function initChat() {
 
     snapshot.forEach((doc) => {
       const msg = doc.data();
+      console.log("📩 Mensaje recibido:", msg); // Debug log
       msg.id = doc.id;
       allMessages.push(msg);
 
       // Determine Conversation ID (Phone Number)
-      // If inbound: from user. If outbound: to user.
       const phone = msg.direction === 'inbound' ? msg.from : msg.to;
+
+      if (!phone) return; // Skip if no phone
 
       if (!conversations[phone]) {
         conversations[phone] = {
           phone: phone,
           messages: [],
           lastMessage: msg,
-          unread: 0 // TODO: Implement unread logic
+          unread: 0
         };
       }
       conversations[phone].messages.push(msg);
     });
 
+    // Helper to handle both Firestore Timestamp and String dates
+    const getDate = (ts) => {
+      if (!ts) return new Date(0);
+      if (ts.toDate) return ts.toDate(); // Firestore Timestamp
+      return new Date(ts); // String or Date object
+    };
+
     // Sort messages within each conversation (oldest first)
     Object.values(conversations).forEach(conv => {
-      conv.messages.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+      conv.messages.sort((a, b) => getDate(a.timestamp) - getDate(b.timestamp));
+      // Update last message to be the actual last one after sort
+      conv.lastMessage = conv.messages[conv.messages.length - 1];
     });
 
     renderChatList();
@@ -311,9 +322,17 @@ function initChat() {
 
 function renderChatList() {
   elements.chatList.innerHTML = '';
+
+  // Helper for date
+  const getDate = (ts) => {
+    if (!ts) return new Date(0);
+    if (ts.toDate) return ts.toDate();
+    return new Date(ts);
+  };
+
   const sortedPhones = Object.keys(conversations).sort((a, b) => {
-    const timeA = conversations[a].lastMessage.timestamp?.seconds || 0;
-    const timeB = conversations[b].lastMessage.timestamp?.seconds || 0;
+    const timeA = getDate(conversations[a].lastMessage.timestamp);
+    const timeB = getDate(conversations[b].lastMessage.timestamp);
     return timeB - timeA; // Newest first
   });
 
@@ -325,7 +344,8 @@ function renderChatList() {
   sortedPhones.forEach(phone => {
     const conv = conversations[phone];
     const lastMsg = conv.lastMessage;
-    const time = lastMsg.timestamp?.toDate ? lastMsg.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+    const dateObj = getDate(lastMsg.timestamp);
+    const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     const div = document.createElement('div');
     div.className = `conversation-item ${activeChatId === phone ? 'active' : ''}`;
@@ -335,7 +355,7 @@ function renderChatList() {
                 <h4>${phone}</h4>
                 <span style="font-size: 0.75rem; color: var(--muted);">${time}</span>
             </div>
-            <p>${lastMsg.text}</p>
+            <p>${lastMsg.text || 'Imagen/Audio'}</p>
         `;
     elements.chatList.appendChild(div);
   });
