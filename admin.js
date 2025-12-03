@@ -282,7 +282,9 @@ function initChat() {
     return;
   }
 
-  const q = query(collection(db, "chats"), orderBy("timestamp", "desc"), limit(500));
+  // DEBUG: Simplificamos la query para ver si hay ALGO
+  // const q = query(collection(db, "chats"), orderBy("timestamp", "desc"), limit(500));
+  const q = collection(db, "chats"); // Trae todo sin ordenar
 
   unsubscribeChat = onSnapshot(q, (snapshot) => {
     console.log(`🔥 Snapshot recibido. Docs: ${snapshot.size}`); // Debug log
