@@ -274,9 +274,10 @@ async function loadOrders() {
 // ==========================================
 // CHAT LOGIC
 // ==========================================
+// pendingMessages is declared at top of file
 
 function initChat() {
-  console.log("🚀 Iniciando chat... (v2.4 - FIX OUTBOUND)"); // Debug log versionado
+  console.log("🚀 Iniciando chat... (v2.5 - FIX DISAPPEARING)"); // Debug log versionado
   if (unsubscribeChat) {
     console.log("⚠️ Chat ya estaba iniciado.");
     return;
@@ -319,6 +320,23 @@ function initChat() {
         };
       }
       conversations[phone].messages.push(msg);
+    });
+
+    // MERGE PENDING MESSAGES (Optimistic UI Persistence)
+    // Filter out pending messages older than 60s to prevent eternal ghosts
+    const now = new Date();
+    pendingMessages = pendingMessages.filter(pm => (now - new Date(pm.timestamp)) < 60000);
+
+    pendingMessages.forEach(pm => {
+      if (!conversations[pm.to]) {
+        conversations[pm.to] = {
+          phone: pm.to,
+          messages: [],
+          lastMessage: pm,
+          unread: 0
+        };
+      }
+      conversations[pm.to].messages.push(pm);
     });
 
     console.log(`💬 Conversaciones agrupadas: ${Object.keys(conversations).length}`); // Debug
@@ -489,9 +507,13 @@ async function sendMessage() {
       from: 'admin' // Placeholder
     };
 
+    // Add to pending messages so it survives snapshots
+    pendingMessages.push(optimisticMsg);
+
+    // Force immediate local update
     if (conversations[activeChatId]) {
       conversations[activeChatId].messages.push(optimisticMsg);
-      // Re-sort to be safe, though it should be last
+      // Re-sort and render immediately
       conversations[activeChatId].messages.sort((a, b) => {
         const getDate = (ts) => {
           if (!ts) return new Date(0);
