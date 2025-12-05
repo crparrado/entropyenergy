@@ -276,7 +276,7 @@ async function loadOrders() {
 // ==========================================
 
 function initChat() {
-  console.log("🚀 Iniciando chat... (v2.3 - FIX DUPLICADOS)"); // Debug log versionado
+  console.log("🚀 Iniciando chat... (v2.4 - FIX OUTBOUND)"); // Debug log versionado
   if (unsubscribeChat) {
     console.log("⚠️ Chat ya estaba iniciado.");
     return;
@@ -480,8 +480,31 @@ async function sendMessage() {
 
     if (!response.ok) throw new Error('Error enviando mensaje');
 
-    // 2. Optimistic UI update (optional, but Firebase listener will handle it)
-    // We rely on n8n to save the outbound message to Firebase, which will trigger the listener
+    // 2. Optimistic UI update
+    const optimisticMsg = {
+      text: text,
+      direction: 'outbound',
+      timestamp: new Date().toISOString(), // Use current time
+      to: activeChatId,
+      from: 'admin' // Placeholder
+    };
+
+    if (conversations[activeChatId]) {
+      conversations[activeChatId].messages.push(optimisticMsg);
+      // Re-sort to be safe, though it should be last
+      conversations[activeChatId].messages.sort((a, b) => {
+        const getDate = (ts) => {
+          if (!ts) return new Date(0);
+          if (ts.toDate) return ts.toDate();
+          return new Date(ts.replace ? ts.replace(/"/g, '') : ts);
+        };
+        return getDate(a.timestamp) - getDate(b.timestamp);
+      });
+      conversations[activeChatId].lastMessage = optimisticMsg;
+
+      renderChatMessages(activeChatId);
+      renderChatList();
+    }
 
   } catch (error) {
     console.error('Error sending message:', error);
