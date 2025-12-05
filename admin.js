@@ -276,7 +276,7 @@ async function loadOrders() {
 // ==========================================
 
 function initChat() {
-  console.log("🚀 Iniciando chat... (v2.1 - FIX FECHAS)"); // Debug log versionado
+  console.log("🚀 Iniciando chat... (v2.3 - FIX DUPLICADOS)"); // Debug log versionado
   if (unsubscribeChat) {
     console.log("⚠️ Chat ya estaba iniciado.");
     return;
@@ -345,6 +345,28 @@ function initChat() {
     // Sort messages within each conversation (oldest first)
     Object.values(conversations).forEach(conv => {
       conv.messages.sort((a, b) => getDate(a.timestamp) - getDate(b.timestamp));
+
+      // DEDUPLICATION: Remove messages with same text within 5 seconds
+      const uniqueMessages = [];
+      conv.messages.forEach((msg, index) => {
+        if (index === 0) {
+          uniqueMessages.push(msg);
+          return;
+        }
+        const prevMsg = uniqueMessages[uniqueMessages.length - 1];
+        const timeDiff = Math.abs(getDate(msg.timestamp) - getDate(prevMsg.timestamp));
+
+        // If text is same and time is close (< 5s), assume duplicate
+        if (msg.text === prevMsg.text && timeDiff < 5000) {
+          console.warn("⚠️ Duplicado detectado y filtrado:", msg.text);
+          // Optional: Prefer the one that matches the expected direction if we knew it
+          // For now, just keep the first one found (or the one already in uniqueMessages)
+          return;
+        }
+        uniqueMessages.push(msg);
+      });
+      conv.messages = uniqueMessages;
+
       // Update last message to be the actual last one after sort
       conv.lastMessage = conv.messages[conv.messages.length - 1];
     });
