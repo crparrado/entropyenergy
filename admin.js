@@ -276,7 +276,7 @@ async function loadOrders() {
 // ==========================================
 
 function initChat() {
-  console.log("🚀 Iniciando chat..."); // Debug log
+  console.log("🚀 Iniciando chat... (v2.1 - FIX FECHAS)"); // Debug log versionado
   if (unsubscribeChat) {
     console.log("⚠️ Chat ya estaba iniciado.");
     return;
@@ -293,8 +293,11 @@ function initChat() {
 
     snapshot.forEach((doc) => {
       const msg = doc.data();
-      // Log full content to see structure
-      console.log("📩 Contenido:", JSON.stringify(msg));
+      // Filter out messages with no text (likely status updates)
+      if (!msg.text) return;
+
+      // Log only valid messages
+      console.log("📩 Contenido (Procesado):", JSON.stringify(msg));
 
       msg.id = doc.id;
       allMessages.push(msg);
@@ -303,7 +306,7 @@ function initChat() {
       const phone = msg.direction === 'inbound' ? msg.from : msg.to;
 
       if (!phone) {
-        console.warn("⚠️ Saltando mensaje sin teléfono:", msg);
+        // console.warn("⚠️ Saltando mensaje sin teléfono:", msg); // Reduced noise
         return;
       }
 
@@ -324,7 +327,19 @@ function initChat() {
     const getDate = (ts) => {
       if (!ts) return new Date(0);
       if (ts.toDate) return ts.toDate(); // Firestore Timestamp
-      return new Date(ts); // String or Date object
+
+      let cleanTs = ts;
+      // Aggressively remove all double quotes from the string
+      if (typeof ts === 'string') {
+        cleanTs = ts.replace(/"/g, '');
+      }
+
+      const date = new Date(cleanTs);
+      if (isNaN(date.getTime())) {
+        console.warn("⚠️ Fecha inválida recibida:", ts, "-> Limpia:", cleanTs);
+        return new Date(0);
+      }
+      return date;
     };
 
     // Sort messages within each conversation (oldest first)
@@ -405,6 +420,7 @@ function renderChatMessages(phone) {
   if (!conv) return;
 
   conv.messages.forEach(msg => {
+    console.log(`Render msg: "${msg.text}" | TS: ${msg.timestamp} | Dir: ${msg.direction}`); // Debug sorting
     const div = document.createElement('div');
     div.className = `message ${msg.direction === 'inbound' ? 'received' : 'sent'}`;
     div.textContent = msg.text;
